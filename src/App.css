@@ -407,3 +407,35 @@ a {
   }
 }
 
+@media (max-width: 700px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 32px 24px;
+    gap: 22px;
+  }
+
+  .footer-left,
+  .footer-links,
+  .footer-qr {
+    justify-self: center;
+  }
+
+  .footer-left p {
+    margin: 0;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
+  .footer-links {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .footer-qr img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
