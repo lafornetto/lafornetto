@@ -1,5 +1,3 @@
-import heroImage from "../assets/images/lafornetto-front.jpg";
-
 export function Footer() {
   return (
     <footer className="site-footer">
