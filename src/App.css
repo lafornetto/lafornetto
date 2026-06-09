@@ -292,7 +292,7 @@ a {
 }
 
 .site-footer {
-  padding: 26px 5%;
+  padding: 22px 5%;
   background: var(--green-dark);
   color: white;
   display: grid;
@@ -319,6 +319,32 @@ a {
 
 .site-footer a:hover {
   color: white;
+}
+
+.footer-left {
+  justify-self: start;
+}
+
+.footer-links {
+  justify-self: center;
+}
+
+.footer-qr {
+  justify-self: end;
+}
+
+.footer-qr p {
+  margin: 0;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.footer-qr img {
+  width: 86px;
+  height: 86px;
+  background: white;
+  padding: 5px;
+  border-radius: 8px;
 }
 
 @media (max-width: 700px) {
