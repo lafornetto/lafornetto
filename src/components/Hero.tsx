@@ -27,9 +27,9 @@ export function Hero() {
         <p>Pizza, kebab, grillrätter, sallader och lunch i Älvkarleby.</p>
 
         <div className="hero-buttons">
-          <a className="primary-btn" href="tel:02682120">
-            Ring och beställ
-          </a>
+            <a className="primary-btn" href="tel:+462682120">
+                Ring och beställ
+            </a>
 
             <a className="secondary-btn" href="/meny">
                 Visa meny
