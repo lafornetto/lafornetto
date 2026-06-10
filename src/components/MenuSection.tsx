@@ -1,18 +1,24 @@
 import { menuCategories } from "../data/menuData";
+import type { Language, MenuCategory } from "../data/menuData";
 
-export function MenuSection() {
-  const renderCategory = (category: (typeof menuCategories)[number]) => (
-    <article className="menu-card" key={category.title}>
-      <h3>{category.title}</h3>
+type MenuSectionProps = {
+  language: Language;
+};
+
+export function MenuSection({ language }: MenuSectionProps) {
+  const renderCategory = (category: MenuCategory) => (
+    <article className="menu-card" key={category.title.sv}>
+      <h3>{category.title[language]}</h3>
 
       {category.items.map((item, index) => (
-        <div className="menu-item" key={item.name}>
+        <div className="menu-item" key={item.name.sv}>
           <div>
             <h4>
-              {category.title === "Pizzor" ? `${index + 1}. ` : ""}
-              {item.name}
+              {category.title.sv === "Pizzor" ? `${index + 1}. ` : ""}
+              {item.name[language]}
             </h4>
-            <p>{item.description}</p>
+
+            <p>{item.description[language]}</p>
           </div>
 
           <strong>{item.price}</strong>

@@ -1,10 +1,18 @@
 import qrCode from "../assets/images/url-qr-code.png";
 
-export function Footer() {
+type FooterProps = {
+  t: {
+    footerCopyright: string;
+    footerQrText: string;
+    footerQrAlt: string;
+  };
+};
+
+export function Footer({ t }: FooterProps) {
   return (
     <footer className="site-footer">
       <div className="footer-left">
-        <p>© 2026 La Fornetto Älvkarleby. Alla rättigheter förbehållna.</p>
+        <p>{t.footerCopyright}</p>
       </div>
 
       <div className="footer-links">
@@ -26,8 +34,8 @@ export function Footer() {
       </div>
 
       <div className="footer-qr">
-        <p>Skanna för meny</p>
-        <img src={qrCode} alt="QR-kod till menyn" />
+        <p>{t.footerQrText}</p>
+        <img src={qrCode} alt={t.footerQrAlt} />
       </div>
     </footer>
   );

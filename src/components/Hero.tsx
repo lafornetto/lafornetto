@@ -1,39 +1,63 @@
 import heroImage from "../assets/images/lafornetto-front.jpg";
 
-export function Hero() {
+type HeroProps = {
+  language: "sv" | "en";
+  setLanguage: React.Dispatch<React.SetStateAction<"sv" | "en">>;
+  t: {
+    navMenu: string;
+    navLunch: string;
+    navContact: string;
+    heroEyebrow: string;
+    heroTitle: string;
+    heroText: string;
+    callButton: string;
+    menuButton: string;
+  };
+};
+
+export function Hero({ language, setLanguage, t }: HeroProps) {
   return (
     <section
-        className="hero"
-        style={{
-            backgroundImage: `
-            linear-gradient(rgba(16,36,31,0.68), rgba(16,36,31,0.9)),
-            url(${heroImage})
-            `,
-        }}
+      className="hero"
+      style={{
+        backgroundImage: `
+          linear-gradient(rgba(16,36,31,0.68), rgba(16,36,31,0.9)),
+          url(${heroImage})
+        `,
+      }}
     >
       <nav className="navbar">
         <div className="brand">La Fornetto</div>
 
         <div className="nav-links">
-          <a href="/meny">Meny</a>
-          <a href="#lunch">Lunch</a>
-          <a href="#contact">Kontakt</a>
+          <a href="/meny">{t.navMenu}</a>
+          <a href="#lunch">{t.navLunch}</a>
+          <a href="#contact">{t.navContact}</a>
+        </div>
+
+        <div className="language-switcher">
+          <button onClick={() => setLanguage("sv")} disabled={language === "sv"}>
+            SV
+          </button>
+          <button onClick={() => setLanguage("en")} disabled={language === "en"}>
+            EN
+          </button>
         </div>
       </nav>
 
       <div className="hero-content">
-        <p className="eyebrow">Restaurang • Pub • Pizzeria</p>
-        <h1>La Fornetto Älvkarleby</h1>
-        <p>Pizza, kebab, grillrätter, sallader och lunch i Älvkarleby.</p>
+        <p className="eyebrow">{t.heroEyebrow}</p>
+        <h1>{t.heroTitle}</h1>
+        <p>{t.heroText}</p>
 
         <div className="hero-buttons">
-            <a className="primary-btn" href="tel:+462682120">
-                Ring och beställ
-            </a>
+          <a className="primary-btn" href="tel:+462682120">
+            {t.callButton}
+          </a>
 
-            <a className="secondary-btn" href="/meny">
-                Visa meny
-            </a>
+          <a className="secondary-btn" href="/meny">
+            {t.menuButton}
+          </a>
         </div>
       </div>
     </section>
