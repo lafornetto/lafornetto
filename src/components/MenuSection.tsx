@@ -10,6 +10,10 @@ export function MenuSection({ language }: MenuSectionProps) {
     <article className="menu-card" key={category.title.sv}>
       <h3>{category.title[language]}</h3>
 
+      {category.intro && (
+        <p className="menu-intro">{category.intro[language]}</p>
+      )}
+
       {category.items.map((item, index) => (
         <div className="menu-item" key={item.name.sv}>
           <div>
@@ -18,7 +22,9 @@ export function MenuSection({ language }: MenuSectionProps) {
               {item.name[language]}
             </h4>
 
-            <p>{item.description[language]}</p>
+            {item.description[language] ? (
+              <p>{item.description[language]}</p>
+            ) : null}
           </div>
 
           <strong>{item.price}</strong>
@@ -27,16 +33,17 @@ export function MenuSection({ language }: MenuSectionProps) {
     </article>
   );
 
+  const pizzaCategory = menuCategories[0];
+  const otherCategories = menuCategories.slice(1);
+
   return (
     <section id="menu" className="section">
-      <div className="menu-grid">
-        <div className="menu-column">
-          {menuCategories.slice(0, 1).map(renderCategory)}
-        </div>
+      <div className="pizza-menu">
+        {renderCategory(pizzaCategory)}
+      </div>
 
-        <div className="menu-column">
-          {menuCategories.slice(1).map(renderCategory)}
-        </div>
+      <div className="menu-grid">
+        {otherCategories.map(renderCategory)}
       </div>
     </section>
   );

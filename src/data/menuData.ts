@@ -13,6 +13,7 @@ export type MenuItem = {
 
 export type MenuCategory = {
   title: TranslatedText;
+  intro?: TranslatedText;
   items: MenuItem[];
 };
 
@@ -21,6 +22,10 @@ export const menuCategories: MenuCategory[] = [
     title: {
       sv: "Pizzor",
       en: "Pizzas",
+    },
+    intro: {
+      sv: "Alla pizzor innehåller tomatsås och ost. Barnpizza −10 kr. Glutenfria alternativ +40 kr.",
+      en: "All pizzas include tomato sauce and cheese. Kids pizza −10 SEK. Gluten-free options +40 SEK.",
     },
     items: [
       {
@@ -342,6 +347,10 @@ export const menuCategories: MenuCategory[] = [
       sv: "Kebabrätter",
       en: "Kebab dishes",
     },
+    intro: {
+      sv: "Välj mellan vitlök, mild, stark eller blandad sås.",
+      en: "Choose between garlic, mild, hot or mixed sauce.",
+    },
     items: [
       {
         name: { sv: "Kebabtallrik", en: "Kebab plate" },
@@ -382,6 +391,10 @@ export const menuCategories: MenuCategory[] = [
       sv: "Kycklingkebab",
       en: "Chicken kebab",
     },
+    intro: {
+      sv: "Välj mellan vitlök, mild, stark eller blandad sås.",
+      en: "Choose between garlic, mild, hot or mixed sauce.",
+    },
     items: [
       {
         name: { sv: "Kycklingtallrik", en: "Chicken kebab plate" },
@@ -392,7 +405,7 @@ export const menuCategories: MenuCategory[] = [
         price: "130 kr",
       },
       {
-        name: { sv: "Kycklingkebrulle", en: "Chicken kebab roll" },
+        name: { sv: "Kycklingkebabrulle", en: "Chicken kebab roll" },
         description: {
           sv: "Färskbakat bröd, kycklingkebab, tomater, feferoni, isbergssallad, rödlök",
           en: "Freshly baked bread, chicken kebab, tomatoes, pepperoni peppers, iceberg lettuce, red onion",
@@ -421,6 +434,10 @@ export const menuCategories: MenuCategory[] = [
     title: {
       sv: "Falafel",
       en: "Falafel",
+    },
+    intro: {
+      sv: "Välj mellan vitlök, mild, stark eller blandad sås.",
+      en: "Choose between garlic, mild, hot or mixed sauce.",
     },
     items: [
       {
@@ -454,6 +471,10 @@ export const menuCategories: MenuCategory[] = [
       sv: "Pasta",
       en: "Pasta",
     },
+    intro: {
+      sv: "Serveras med ruccola och riven Grana Padano.",
+      en: "Served with rocket and grated Grana Padano.",
+    },
     items: [
       {
         name: { sv: "Ox-/Fläskfilépasta", en: "Beef/Pork tenderloin pasta" },
@@ -486,6 +507,326 @@ export const menuCategories: MenuCategory[] = [
           en: "Bacon, onion, egg yolk, cream sauce",
         },
         price: "150 kr",
+      },
+    ],
+  },
+  {
+    title: {
+      sv: "Sallader",
+      en: "Salads",
+    },
+    intro: {
+      sv: "Alla sallader innehåller isbergssallad, tomater, gurka, dressing, bröd och ruccola.",
+      en: "All salads include iceberg lettuce, tomatoes, cucumber, dressing, bread and rocket.",
+    },
+    items: [
+      {
+        name: { sv: "Ost & skinksallad", en: "Cheese & ham salad" },
+        description: {
+          sv: "Ost, skinka, ananas och ägg.",
+          en: "Cheese, ham, pineapple and egg.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Tonfisksallad", en: "Tuna salad" },
+        description: {
+          sv: "Tonfisk, rödlök, ägg och citron.",
+          en: "Tuna, red onion, egg and lemon.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Kycklingsallad", en: "Chicken salad" },
+        description: {
+          sv: "Kycklingfilé, ananas och rödlök.",
+          en: "Chicken fillet, pineapple and red onion.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Räksallad", en: "Shrimp salad" },
+        description: {
+          sv: "Räkor, ägg, citron, dill och oliver.",
+          en: "Shrimp, egg, lemon, dill and olives.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Grekisk sallad", en: "Greek salad" },
+        description: {
+          sv: "Salladsost, oliver, feferoni, rödlök, paprika och citron.",
+          en: "Salad cheese, olives, pepperoni peppers, red onion, bell pepper and lemon.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Kebabsallad", en: "Kebab salad" },
+        description: {
+          sv: "Kebabkött, rödlök och feferoni.",
+          en: "Kebab meat, red onion and pepperoni peppers.",
+        },
+        price: "130 kr",
+      },
+    ],
+  },
+    {
+    title: {
+      sv: "Grillrätter",
+      en: "Grill dishes",
+    },
+    intro: {
+      sv: "Välj mellan kokt potatis, klyftpotatis, pommes eller ris.",
+      en: "Choose between boiled potatoes, potato wedges, fries or rice.",
+    },
+    items: [
+      {
+        name: { sv: "Big Meal", en: "Big Meal" },
+        description: {
+          sv: "90 g hamburgare med bröd, pommes och 33 cl dryck.",
+          en: "90 g hamburger with bread, fries and a 33 cl drink.",
+        },
+        price: "125 kr",
+      },
+      {
+        name: { sv: "Super Meal", en: "Super Meal" },
+        description: {
+          sv: "150 g hamburgare med bröd, pommes och 33 cl dryck.",
+          en: "150 g hamburger with bread, fries and a 33 cl drink.",
+        },
+        price: "139 kr",
+      },
+      {
+        name: { sv: "Kycklingspett", en: "Chicken skewers" },
+        description: {
+          sv: "Tzatziki och tomatsås.",
+          en: "Tzatziki and tomato sauce.",
+        },
+        price: "159 kr",
+      },
+      {
+        name: { sv: "Schnitzel", en: "Schnitzel" },
+        description: {
+          sv: "Pommes och bearnaisesås.",
+          en: "Fries and béarnaise sauce.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Chicken nuggets", en: "Chicken nuggets" },
+        description: {
+          sv: "Med pommes och valfri sås.",
+          en: "With fries and a sauce of your choice.",
+        },
+        price: "110 kr",
+      },
+      {
+        name: { sv: "Fish and chips", en: "Fish and chips" },
+        description: {
+          sv: "Friterad fiskfilé med pommes och valfri sås.",
+          en: "Fried fish fillet with fries and a sauce of your choice.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Rödspätta", en: "Plaice" },
+        description: {
+          sv: "Med remouladsås och kokt potatis.",
+          en: "With remoulade sauce and boiled potatoes.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Oxfilé", en: "Beef fillet" },
+        description: {
+          sv: "Champinjoner, sparris och bearnaisesås.",
+          en: "Mushrooms, asparagus and béarnaise sauce.",
+        },
+        price: "259 kr",
+      },
+      {
+        name: { sv: "Filé Black White", en: "Fillet Black White" },
+        description: {
+          sv: "Stekta grönsaker med bearnaisesås.",
+          en: "Fried vegetables with béarnaise sauce.",
+        },
+        price: "249 kr",
+      },
+      {
+        name: { sv: "Plankstek – oxfilé", en: "Plank steak – beef fillet" },
+        description: {
+          sv: "Med rödvinssås och bearnaisesås.",
+          en: "With red wine sauce and béarnaise sauce.",
+        },
+        price: "285 kr",
+      },
+      {
+        name: { sv: "Plankstek – fläskfilé", en: "Plank steak – pork fillet" },
+        description: {
+          sv: "Med rödvinssås och bearnaisesås.",
+          en: "With red wine sauce and béarnaise sauce.",
+        },
+        price: "275 kr",
+      },
+      {
+        name: { sv: "Husets kycklingfilé", en: "House chicken fillet" },
+        description: {
+          sv: "Med pommes och bearnaisesås.",
+          en: "With fries and béarnaise sauce.",
+        },
+        price: "149 kr",
+      },
+      {
+        name: { sv: "Lövstek", en: "Minute steak" },
+        description: {
+          sv: "Med bearnaisesås.",
+          en: "With béarnaise sauce.",
+        },
+        price: "130 kr",
+      },
+    ],
+  },
+    {
+    title: {
+      sv: "Barnrätter",
+      en: "Kids meals",
+    },
+    items: [
+      {
+        name: { sv: "45 g hamburgare", en: "45 g hamburger" },
+        description: {
+          sv: "Med bröd och 33 cl dryck.",
+          en: "With bread and a 33 cl drink.",
+        },
+        price: "95 kr",
+      },
+      {
+        name: { sv: "Pannkaka", en: "Pancakes" },
+        description: {
+          sv: "Med sylt, grädde och 33 cl dryck.",
+          en: "With jam, whipped cream and a 33 cl drink.",
+        },
+        price: "95 kr",
+      },
+      {
+        name: { sv: "Chicken nuggets", en: "Chicken nuggets" },
+        description: {
+          sv: "Med pommes och 33 cl dryck.",
+          en: "With fries and a 33 cl drink.",
+        },
+        price: "95 kr",
+      },
+    ],
+  },
+  {
+    title: {
+      sv: "Förrätter",
+      en: "Starters",
+    },
+    items: [
+      {
+        name: { sv: "Vitlöksbröd", en: "Garlic bread" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "70 kr",
+      },
+      {
+        name: { sv: "Friterat blomkål", en: "Fried cauliflower" },
+        description: {
+          sv: "Med vitlökssås.",
+          en: "With garlic sauce.",
+        },
+        price: "75 kr",
+      },
+      {
+        name: { sv: "Friterade haricots", en: "Fried haricots" },
+        description: {
+          sv: "Med vitlökssås.",
+          en: "With garlic sauce.",
+        },
+        price: "75 kr",
+      },
+    ],
+  },
+  {
+    title: {
+      sv: "Efterrätter",
+      en: "Desserts",
+    },
+    items: [
+      {
+        name: { sv: "Glasscoupe med sås", en: "Ice cream sundae with sauce" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "75 kr",
+      },
+      {
+        name: { sv: "Banana split", en: "Banana split" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "79 kr",
+      },
+      {
+        name: { sv: "Äppelpaj", en: "Apple pie" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "70 kr",
+      },
+    ],
+  },
+  {
+    title: {
+      sv: "Tillbehör",
+      en: "Extras",
+    },
+    items: [
+      {
+        name: { sv: "Pizzasallad", en: "Pizza salad" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "20 kr",
+      },
+      {
+        name: { sv: "Dressing", en: "Dressing" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "20 kr",
+      },
+      {
+        name: { sv: "Extra pålägg", en: "Extra toppings" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "15–40 kr",
+      },
+      {
+        name: { sv: "Pizzabröd", en: "Pizza bread" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "20 kr",
+      },
+      {
+        name: { sv: "Pommes", en: "Fries" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "60 kr",
       },
     ],
   },
