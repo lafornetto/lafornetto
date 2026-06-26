@@ -17,7 +17,7 @@ export function Footer({ t }: FooterProps) {
 
       <div className="footer-links">
         <a
-          href="https://www.facebook.com/profile.php?id=100054200664793"
+          href="https://www.facebook.com/profile.php?id=61575863934833"
           target="_blank"
           rel="noreferrer"
         >
