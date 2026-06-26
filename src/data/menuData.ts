@@ -79,8 +79,8 @@ export const menuCategories: MenuCategory[] = [
       {
         name: { sv: "Calzone Special", en: "Calzone Special" },
         description: {
-          sv: "Inbakad pizza med skinka och räkor",
-          en: "Folded pizza with ham and shrimp",
+          sv: "Inbakad pizza med skinka, räkor och champinjoner",
+          en: "Folded pizza with ham, shrimp and mushrooms",
         },
         price: "125 kr",
       },
