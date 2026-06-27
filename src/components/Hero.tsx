@@ -1,6 +1,6 @@
 import heroImage from "../assets/images/lafornetto-front.jpg";
 import logo from "../assets/images/la-fornetto-logo.png";
-
+import swedenFlag from "../assets/images/sweden-flag.png";
 
 type HeroProps = {
   language: "sv" | "en";
@@ -43,20 +43,28 @@ export function Hero({ language, setLanguage, t }: HeroProps) {
           <a href="#contact">{t.navContact}</a>
         </div>
 
-        <div className="language-switcher">
-          <button
-            onClick={() => setLanguage("sv")}
-            disabled={language === "sv"}
-          >
-            SV
-          </button>
+        <div className="language-area">
+          <div className="language-switcher">
+            <button
+              onClick={() => setLanguage("sv")}
+              disabled={language === "sv"}
+            >
+              SV
+            </button>
 
-          <button
-            onClick={() => setLanguage("en")}
-            disabled={language === "en"}
-          >
-            EN
-          </button>
+            <button
+              onClick={() => setLanguage("en")}
+              disabled={language === "en"}
+            >
+              EN
+            </button>
+          </div>
+
+          <img
+            src={swedenFlag}
+            alt="Svenska flaggan"
+            className="sweden-flag"
+          />
         </div>
       </nav>
 
