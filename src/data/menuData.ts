@@ -38,6 +38,9 @@ export const menuCategories: MenuCategory[] = [
         description: { sv: "Skinka", en: "Ham" },
         price: "115 kr",
       },
+      { name: { sv: "Al Funghi", en: "Al Funghi" }, 
+        description: { sv: "Ost, Champinjoner", en: "Cheese, Mushrooms" }, 
+        price: "115 kr" },
       {
         name: { sv: "Al Tonno", en: "Al Tonno" },
         description: { sv: "Lök, tonfisk", en: "Onion, tuna" },
@@ -580,6 +583,22 @@ export const menuCategories: MenuCategory[] = [
       en: "Choose between boiled potatoes, potato wedges, fries or rice.",
     },
     items: [
+      {
+        name: { sv: "Superstar", en: "Superstar" },
+        description: {
+          sv: "150 g hamburgare med bröd, hamburgedressing, sallad, lök, tomat och ketchup.",
+          en: "150 g hamburger with bread, hamburger dressing, lettuce, onion, tomato and ketchup",
+        },
+        price: "90 kr",
+      },
+      {
+        name: { sv: "Bigstar", en: "Bigstar" },
+        description: {
+          sv: "90 g hamburgare med bröd, sallad, lök, tomat och ketchup.",
+          en: "90 g hamburger with bread, lettuce, onion, tomato and ketchup.",
+        },
+        price: "80 kr",
+      },
       {
         name: { sv: "Big Meal", en: "Big Meal" },
         description: {
