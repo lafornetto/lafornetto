@@ -10,7 +10,7 @@
   --text-dark: #1d1d1d;
   --text-light: #f8f8f8;
 
-  /* Bakåtkompatibilitet för befintlig CSS */
+  /* Gamla namn kopplade till nya temat */
   --green-dark: var(--blue-dark);
   --green: var(--blue);
   --gold: var(--yellow);
@@ -48,7 +48,7 @@ a {
 .hero {
   min-height: 90vh;
   padding: 28px;
-  color: white;
+  color: var(--white);
   background-position: center;
   background-size: cover;
 }
@@ -57,14 +57,21 @@ a {
   max-width: 1150px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .brand {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--gold);
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-top: 8px;
 }
 
 .nav-links {
@@ -80,15 +87,15 @@ a {
 }
 
 .eyebrow {
-  color: var(--gold);
+  color: var(--yellow);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 800;
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
   margin: 12px 0;
+  font-size: clamp(3rem, 8vw, 6rem);
 }
 
 .hero-content p {
@@ -96,11 +103,11 @@ a {
 }
 
 .hero-buttons {
-  margin-top: 32px;
   display: flex;
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 32px;
 }
 
 .primary-btn,
@@ -111,26 +118,26 @@ a {
 }
 
 .primary-btn {
-  background: var(--orange);
-  color: white;
+  color: var(--blue-dark);
+  background: var(--yellow);
 }
 
 .secondary-btn {
-  border: 2px solid var(--gold);
-  color: var(--gold);
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
 }
 
 .info-strip {
-  max-width: 1100px;
-  margin: -45px auto 0;
-  padding: 28px;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  position: relative;
+  max-width: 1100px;
+  margin: -45px auto 0;
+  padding: 28px;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .info-strip div {
@@ -139,7 +146,7 @@ a {
 }
 
 .info-strip strong {
-  color: var(--green);
+  color: var(--blue);
 }
 
 .section {
@@ -154,22 +161,10 @@ a {
   text-align: center;
 }
 
-.section-heading h2,
-
-.lunch-section {
-  margin: 80px 0;
-  padding: 80px 24px;
-  color: var(--white);
-  text-align: center;
-  background: var(--blue-dark);
-}
-
-.lunch-section h2 {
-  color: var(--white);
-}
-
-.lunch-section .eyebrow {
-  color: var(--yellow);
+.section-heading h2 {
+  margin: 8px 0;
+  color: var(--blue-dark);
+  font-size: 2.5rem;
 }
 
 .menu-grid {
@@ -193,16 +188,16 @@ a {
 }
 
 .menu-card {
-  background: white;
   padding: 28px;
-  border-top: 6px solid var(--green);
+  background: var(--white);
+  border-top: 6px solid var(--blue);
   border-radius: 22px;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
 }
 
 .menu-card h3 {
   margin-top: 0;
-  color: var(--green);
+  color: var(--blue);
   font-size: 1.6rem;
 }
 
@@ -225,7 +220,7 @@ a {
 
 .menu-item strong {
   white-space: nowrap;
-  color: var(--orange);
+  color: var(--blue-dark);
 }
 
 .menu-intro {
@@ -237,19 +232,19 @@ a {
 }
 
 .about-section {
+  position: relative;
   max-width: 900px;
   margin: -45px auto 90px;
   padding: 42px;
-  background: white;
-  border-radius: 28px;
   text-align: center;
-  position: relative;
+  background: var(--white);
+  border-radius: 28px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .about-section h2 {
   margin: 10px 0 18px;
-  color: var(--green-dark);
+  color: var(--blue-dark);
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
@@ -261,30 +256,34 @@ a {
 .lunch-section {
   margin: 80px 0;
   padding: 80px 24px;
-  color: white;
+  color: var(--white);
   text-align: center;
-  background: var(--green-dark);
+  background: var(--blue-dark);
 }
 
 .lunch-section h2 {
-  color: white;
+  color: var(--white);
+}
+
+.lunch-section .eyebrow {
+  color: var(--yellow);
 }
 
 .contact-section-dark {
   width: 100%;
   margin: 0;
   padding: 70px 24px;
-  color: white;
-  background: #10241f;
+  color: var(--white);
+  background: var(--blue-dark);
 }
 
 .contact-inner {
-  max-width: 1150px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 0.9fr 1fr;
   gap: 48px;
   align-items: center;
+  max-width: 1150px;
+  margin: 0 auto;
 }
 
 .contact-content h2 {
@@ -303,16 +302,16 @@ a {
 }
 
 .opening-hours strong {
-  color: var(--gold);
+  color: var(--yellow);
 }
 
 .maps-light-btn {
   display: inline-block;
   margin-top: 28px;
   padding: 14px 22px;
+  color: var(--blue-dark);
+  background: var(--white);
   border-radius: 999px;
-  color: #10241f;
-  background: white;
   font-weight: 800;
 }
 
@@ -332,9 +331,9 @@ a {
 
 .menu-page-hero {
   padding: 80px 24px;
-  color: white;
+  color: var(--white);
   text-align: center;
-  background: var(--green-dark);
+  background: var(--blue-dark);
 }
 
 .menu-page-hero h1 {
@@ -345,28 +344,28 @@ a {
 .back-link {
   display: inline-block;
   margin-bottom: 32px;
-  color: var(--gold);
+  color: var(--yellow);
   font-weight: 800;
 }
 
 .site-footer {
-  padding: 22px 5%;
-  color: white;
-  background: var(--green-dark);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 24px;
+  padding: 22px 5%;
+  color: var(--white);
+  background: var(--blue-dark);
   font-size: 0.95rem;
 }
 
 .site-footer a {
-  color: var(--gold);
+  color: var(--yellow);
   font-weight: 700;
 }
 
 .site-footer a:hover {
-  color: white;
+  color: var(--white);
 }
 
 .footer-left {
@@ -375,8 +374,8 @@ a {
 
 .footer-links {
   display: flex;
-  justify-self: center;
   justify-content: center;
+  justify-self: center;
   gap: 28px;
 }
 
@@ -386,7 +385,7 @@ a {
 
 .footer-qr p {
   margin: 0;
-  color: white;
+  color: var(--white);
   font-size: 0.85rem;
 }
 
@@ -394,7 +393,7 @@ a {
   width: 86px;
   height: 86px;
   padding: 5px;
-  background: white;
+  background: var(--white);
   border-radius: 8px;
 }
 
@@ -418,19 +417,28 @@ a {
 }
 
 @media (max-width: 800px) {
-  .navbar,
-  .nav-links {
+  .navbar {
     flex-direction: column;
-    gap: 14px;
+    gap: 8px;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    gap: 18px;
+  }
+
+  .navbar-logo {
+    width: 70px;
+    height: 70px;
+    margin-top: 0;
+  }
+
+  .language-switcher {
+    margin-top: 0;
   }
 
   .hero-content {
-    margin-top: 100px;
-  }
-
-  .info-strip,
-  .menu-grid {
-    grid-template-columns: 1fr;
+    margin-top: 72px;
   }
 }
 
