@@ -1,10 +1,21 @@
 :root {
-  --green-dark: #1f3f35;
-  --green: #2f5d50;
-  --gold: #d8b77b;
-  --cream: #f8f1e6;
-  --orange: #c96b32;
-  --text: #222222;
+  /* Svenska flaggan-inspirerat tema */
+  --blue-dark: #0b2d5c;
+  --blue: #164a8a;
+  --yellow: #f2c300;
+  --yellow-light: #ffd84d;
+
+  --cream: #fffaf0;
+  --white: #ffffff;
+  --text-dark: #1d1d1d;
+  --text-light: #f8f8f8;
+
+  /* Bakåtkompatibilitet för befintlig CSS */
+  --green-dark: var(--blue-dark);
+  --green: var(--blue);
+  --gold: var(--yellow);
+  --orange: var(--yellow);
+  --text: var(--text-dark);
 }
 
 * {
@@ -144,11 +155,21 @@ a {
 }
 
 .section-heading h2,
-.lunch-section h2,
-.contact-section h2 {
-  margin: 8px 0;
-  color: var(--green-dark);
-  font-size: 2.5rem;
+
+.lunch-section {
+  margin: 80px 0;
+  padding: 80px 24px;
+  color: var(--white);
+  text-align: center;
+  background: var(--blue-dark);
+}
+
+.lunch-section h2 {
+  color: var(--white);
+}
+
+.lunch-section .eyebrow {
+  color: var(--yellow);
 }
 
 .menu-grid {

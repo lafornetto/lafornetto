@@ -21,7 +21,7 @@ export function Hero({ language, setLanguage, t }: HeroProps) {
       className="hero"
       style={{
         backgroundImage: `
-          linear-gradient(rgba(16,36,31,0.68), rgba(16,36,31,0.9)),
+          linear-gradient(rgba(11,45,92,0.58), rgba(7,27,56,0.82)),
           url(${heroImage})
         `,
       }}
