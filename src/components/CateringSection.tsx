@@ -12,20 +12,23 @@ export function CateringSection() {
         </p>
 
         <p>
-          Kontakta oss i god tid så tar vi fram ett upplägg som passar ert sällskap.
+          Kontakta oss i god tid så tar vi fram ett upplägg som passar ert
+          sällskap.
         </p>
 
-        <a className="primary-btn" href="#contact">
-          Kontakta oss för catering
-        </a>
+        <div className="catering-actions">
+          <a className="primary-btn" href="#contact">
+            Kontakta oss för catering
+          </a>
 
-        <a
+          <a
             href="/documents/la-fornetto-bestallningsblankett.pdf"
             download
             className="catering-download-button"
-        >
+          >
             Ladda ner beställningsblankett
-        </a>
+          </a>
+        </div>
       </div>
     </section>
   );
