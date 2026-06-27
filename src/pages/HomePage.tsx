@@ -5,6 +5,7 @@ import { LunchSection } from "../components/LunchSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 import { CateringSection } from "../components/CateringSection";
+import { GiftCardSection } from "../components/GiftCardSection";
 
 type HomePageProps = {
   language: "sv" | "en";
@@ -30,9 +31,16 @@ type HomePageProps = {
     menuPageTitle: string;
     menuPageText: string;
 
-    lunchEyebrow: string;
-    lunchTitle: string;
-    lunchText: string;
+        lunchEyebrow: string;
+        lunchTitle: string;
+        lunchText: string;
+
+        giftCardEyebrow: string;
+        giftCardTitle: string;
+        giftCardText: string;
+        giftCardText2: string;
+        giftCardNote: string;
+        giftCardImageAlt: string;
 
     contactEyebrow: string;
     contactTitle: string;
@@ -64,6 +72,7 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
       <AboutSection t={t} />
       <LunchSection t={t} />
       <CateringSection />
+      <GiftCardSection t={t} />
       <ContactSection t={t} />
       <Footer t={t} />
     </>

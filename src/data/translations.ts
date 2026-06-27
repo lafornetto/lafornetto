@@ -27,6 +27,15 @@ export const translations = {
     lunchTitle: "Lunch 125 kr",
     lunchText: "Serveras 11:00–14:00. Inkluderar dryck, bröd och kaffe.",
 
+    giftCardEyebrow: "Presentkort",
+    giftCardTitle: "Ge bort en smakupplevelse",
+    giftCardText:
+      "Letar du efter en enkel och uppskattad present? På La Fornetto kan du köpa fysiska presentkort direkt i pizzerian.",
+    giftCardText2:
+      "Perfekt till födelsedagar, högtider eller bara för att bjuda någon på riktigt god mat.",
+    giftCardNote: "Presentkort köps på plats hos oss på La Fornetto.",
+    giftCardImageAlt: "La Fornetto presentkort",
+
     contactEyebrow: "Kontakt",
     contactTitle: "Hitta till La Fornetto",
 
@@ -77,6 +86,15 @@ export const translations = {
     lunchEyebrow: "Monday to Friday",
     lunchTitle: "Lunch 125 SEK",
     lunchText: "Served 11:00–14:00. Includes drink, bread and coffee.",
+
+    giftCardEyebrow: "Gift Cards",
+    giftCardTitle: "Give the gift of great food",
+    giftCardText:
+      "Looking for a simple and appreciated gift? At La Fornetto, you can buy physical gift cards directly at the pizzeria.",
+    giftCardText2:
+      "Perfect for birthdays, holidays, or simply treating someone to really good food.",
+    giftCardNote: "Gift cards are purchased on-site at La Fornetto.",
+    giftCardImageAlt: "La Fornetto gift card",
 
     contactEyebrow: "Contact",
     contactTitle: "Find La Fornetto",
