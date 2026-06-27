@@ -4,6 +4,7 @@ import { AboutSection } from "../components/AboutSection";
 import { LunchSection } from "../components/LunchSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { CateringSection } from "../components/CateringSection";
 
 type HomePageProps = {
   language: "sv" | "en";
@@ -62,6 +63,7 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
       <Hero language={language} setLanguage={setLanguage} t={t} />
       <AboutSection t={t} />
       <LunchSection t={t} />
+      <CateringSection />
       <ContactSection t={t} />
       <Footer t={t} />
     </>
