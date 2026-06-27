@@ -18,6 +18,14 @@ export function CateringSection() {
         <a className="primary-btn" href="#contact">
           Kontakta oss för catering
         </a>
+
+        <a
+            href="/documents/la-fornetto-bestallningsblankett.pdf"
+            download
+            className="catering-download-button"
+        >
+            Ladda ner beställningsblankett
+        </a>
       </div>
     </section>
   );
