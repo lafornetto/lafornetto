@@ -532,6 +532,25 @@ a {
   display: block;
 }
 
+.menu-download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 22px;
+  padding: 14px 24px;
+  border: 2px solid var(--yellow);
+  border-radius: 999px;
+  color: var(--yellow);
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-download-button:hover {
+  background: var(--yellow);
+  color: var(--blue-dark);
+}
+
 @media (max-width: 900px) {
   .gift-card-container {
     grid-template-columns: 1fr;

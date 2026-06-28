@@ -38,6 +38,14 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
         <p className="eyebrow">{t.menuPageEyebrow}</p>
         <h1>{t.menuPageTitle}</h1>
         <p>{t.menuPageText}</p>
+
+        <a
+          href="/documents/la-fornetto-avhamtningsmeny.pdf"
+          download
+          className="menu-download-button"
+        >
+          Ladda ner avhämtningsmeny
+        </a>
       </section>
 
       <MenuSection language={language} />
