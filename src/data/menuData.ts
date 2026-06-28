@@ -24,8 +24,8 @@ export const menuCategories: MenuCategory[] = [
       en: "Pizzas",
     },
     intro: {
-      sv: "Alla pizzor innehåller tomatsås och ost. Familjepizza är 30 kr billigare än tre vanliga pizzor. Barnpizza -10 kr. Glutenfria alternativ +40 kr.",
-      en: "All pizzas include tomato sauce and cheese. A family pizza is 30 SEK cheaper than three regular pizzas. Kids pizza -10 SEK. Gluten-free options +40 SEK.",
+      sv: "Alla pizzor innehåller tomatsås och ost. \nFamiljepizza är 30 kr billigare än tre vanliga pizzor. \nBarnpizza -10 kr. \nGlutenfria alternativ +40 kr.",
+      en: "All pizzas include tomato sauce and cheese. \nA family pizza is 30 SEK cheaper than three regular pizzas. \nKids pizza -10 SEK. \nGluten-free options +40 SEK.",
     },
     items: [
       {

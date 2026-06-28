@@ -229,6 +229,7 @@ a {
   color: #625b52;
   line-height: 1.6;
   border-bottom: 1px solid #eee2d0;
+  white-space: pre-line;
 }
 
 .about-section {
