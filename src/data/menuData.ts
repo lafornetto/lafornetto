@@ -57,6 +57,11 @@ export const menuCategories: MenuCategory[] = [
         price: "120 kr",
       },
       {
+        name: { sv: "Mia Special", en: "Mia Special" },
+        description: { sv: "Ost, champinjoner, räkor", en: "Cheese, mushrooms, shrimp" },
+        price: "125 kr",
+      },
+      {
         name: { sv: "Bussola", en: "Bussola" },
         description: { sv: "Skinka, räkor", en: "Ham, shrimp" },
         price: "125 kr",
@@ -840,13 +845,30 @@ export const menuCategories: MenuCategory[] = [
         price: "20 kr",
       },
       {
-        name: { sv: "Pommes", en: "Fries" },
+        name: { sv: "Liten pommes", en: "Small fries" },
         description: {
           sv: "",
           en: "",
         },
-        price: "60 kr",
+        price: "30 kr",
       },
+      {
+        name: { sv: "Mellan pommes", en: "Medium fries" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "45 kr",
+      },
+      {
+        name: { sv: "Jalapeno pappers", en: "Jalapeno peppers" },
+        description: {
+          sv: "Jalapeno pappers 5st med sås.",
+          en: "Jalapeno peppers 5 pcs with sauce.",
+        },
+        price: "100 kr",
+      },
+      
     ],
   },
 ];
