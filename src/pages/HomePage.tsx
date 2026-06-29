@@ -15,6 +15,10 @@ import restaurantImageOne from "../assets/images/resturange-1.jpg";
 import saladImage from "../assets/images/sallad-1.jpg";
 import restaurantImageTwo from "../assets/images/resturange-2.jpg";
 
+import pizzaThreeImage from "../assets/images/pizza-3.jpg";
+import pastaTwoImage from "../assets/images/pasta-2.jpg";
+import saladTwoImage from "../assets/images/sallad-2.jpg";
+
 type HomePageProps = {
   language: "sv" | "en";
   setLanguage: Dispatch<SetStateAction<"sv" | "en">>;
@@ -83,6 +87,13 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
       <Hero language={language} setLanguage={setLanguage} t={t} />
 
       <AboutSection t={t} />
+      <section className="about-food-gallery">
+        <div className="about-food-gallery-grid">
+          <img src={pizzaThreeImage} alt="Pizza från La Fornetto" />
+          <img src={pastaTwoImage} alt="Pasta från La Fornetto" />
+          <img src={saladTwoImage} alt="Sallad från La Fornetto" />
+        </div>
+      </section>
       <LunchSection t={t} />
 
       <section className="food-gallery">

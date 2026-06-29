@@ -613,6 +613,38 @@ a {
   line-height: 1.6;
 }
 
+.about-food-gallery {
+  max-width: 1150px;
+  margin: 40px auto 55px;
+  padding: 0 24px;
+}
+
+.about-food-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.about-food-gallery-grid img {
+  width: 100%;
+  height: 230px;
+  display: block;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 800px) {
+  .about-food-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-food-gallery-grid img {
+    height: 230px;
+  }
+}
+
 @media (max-width: 900px) {
   .gift-card-container {
     grid-template-columns: 1fr;
