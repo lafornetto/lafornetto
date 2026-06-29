@@ -74,9 +74,28 @@ a {
   margin-top: 8px;
 }
 
+.nav-links a {
+  color: white;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  background: var(--gold);
+  color: var(--green-dark);
+}
+
 .nav-links {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.menu-card p {
   font-weight: 700;
 }
 
