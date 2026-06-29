@@ -38,6 +38,23 @@ export function ContactSection({ t }: ContactSectionProps) {
           <p>
             <strong>{t.contactInstagramLabel}:</strong> @Lafornetto2025
           </p>
+          <p>
+            <strong>E-post:</strong>{" "}
+            <a href="mailto:lafornetto@hotmail.com">
+              lafornetto@hotmail.com
+            </a>
+          </p>
+
+          <p>
+            <strong>WhatsApp:</strong>{" "}
+            <a
+              href="https://wa.me/46735546878"
+              target="_blank"
+              rel="noreferrer"
+            >
+              +46 73 554 68 78
+            </a>
+          </p>
 
           <div className="opening-hours">
             <strong>{t.contactWinterHoursTitle}</strong>
