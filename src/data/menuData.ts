@@ -621,6 +621,14 @@ export const menuCategories: MenuCategory[] = [
         price: "139 kr",
       },
       {
+        name: { sv: "Kycklingburgare", en: "Chicken burger" },
+        description: {
+          sv: "Kycklinghamburgare 140 g med bröd, sallad, tomat, lök och dressing, pommes och 33 cl dryck.",
+          en: "Chicken hamburger 140 g with bread, lettuce, tomato, onion and dressing, fries and a 33 cl drink.",
+        },
+        price: "150 kr",
+      },
+      {
         name: { sv: "Kycklingspett", en: "Chicken skewers" },
         description: {
           sv: "Tzatziki och tomatsås.",
