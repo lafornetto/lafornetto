@@ -7,6 +7,14 @@ import { Footer } from "../components/Footer";
 import { CateringSection } from "../components/CateringSection";
 import { GiftCardSection } from "../components/GiftCardSection";
 
+import pizzaImage from "../assets/images/pizza-1.jpg";
+import kebabImage from "../assets/images/kebab-1.jpg";
+import pastaImage from "../assets/images/pasta-1.jpg";
+
+import restaurantImageOne from "../assets/images/resturange-1.jpg";
+import saladImage from "../assets/images/sallad-1.jpg";
+import restaurantImageTwo from "../assets/images/resturange-2.jpg";
+
 type HomePageProps = {
   language: "sv" | "en";
   setLanguage: Dispatch<SetStateAction<"sv" | "en">>;
@@ -31,16 +39,16 @@ type HomePageProps = {
     menuPageTitle: string;
     menuPageText: string;
 
-        lunchEyebrow: string;
-        lunchTitle: string;
-        lunchText: string;
+    lunchEyebrow: string;
+    lunchTitle: string;
+    lunchText: string;
 
-        giftCardEyebrow: string;
-        giftCardTitle: string;
-        giftCardText: string;
-        giftCardText2: string;
-        giftCardNote: string;
-        giftCardImageAlt: string;
+    giftCardEyebrow: string;
+    giftCardTitle: string;
+    giftCardText: string;
+    giftCardText2: string;
+    giftCardNote: string;
+    giftCardImageAlt: string;
 
     contactEyebrow: string;
     contactTitle: string;
@@ -69,9 +77,49 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
   return (
     <>
       <Hero language={language} setLanguage={setLanguage} t={t} />
+
       <AboutSection t={t} />
       <LunchSection t={t} />
+
+      <section className="food-gallery">
+        <div className="section-heading">
+          <p className="eyebrow">Något för alla smaker</p>
+          <h2>Favoriter från vår meny</h2>
+          <p>Pizza, kebab, grillrätter, sallader och mycket mer.</p>
+        </div>
+
+        <div className="food-gallery-grid">
+          <img src={pizzaImage} alt="Pizza från La Fornetto" />
+          <img src={kebabImage} alt="Kebab från La Fornetto" />
+          <img src={pastaImage} alt="Mat från La Fornetto" />
+        </div>
+      </section>
+
       <CateringSection />
+      <section className="restaurant-gallery">
+        <div className="section-heading">
+          <p className="eyebrow">Välkommen in</p>
+          <h2>Ät på plats hos oss</h2>
+          <p>En avslappnad miljö för lunch, middag och en stund tillsammans.</p>
+        </div>
+
+        <div className="restaurant-gallery-grid">
+          <img
+            src={restaurantImageOne}
+            alt="Interiör från La Fornetto"
+          />
+
+          <img
+            src={saladImage}
+            alt="Sallad från La Fornetto"
+          />
+
+          <img
+            src={restaurantImageTwo}
+            alt="Sittplatser inne på La Fornetto"
+          />
+        </div>
+      </section>
       <GiftCardSection t={t} />
       <ContactSection t={t} />
       <Footer t={t} />
