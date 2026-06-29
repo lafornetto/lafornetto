@@ -48,11 +48,11 @@ export function ContactSection({ t }: ContactSectionProps) {
           <p>
             <strong>WhatsApp:</strong>{" "}
             <a
-              href="https://wa.me/46735546878"
+              href="https://wa.me/46735469961"
               target="_blank"
               rel="noreferrer"
             >
-              +46 73 554 68 78
+              +46 73 546 99 61
             </a>
           </p>
 
