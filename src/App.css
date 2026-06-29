@@ -434,10 +434,10 @@ a {
 }
 
 .sweden-flag {
-  width: 56px;
+  width: 76px;
   height: auto;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
 }
 
 .catering-wrapper {
@@ -644,7 +644,7 @@ a {
 
 @media (max-width: 800px) {
   .sweden-flag {
-    width: 42px;
+    width: 82px;
   }
 }
 
