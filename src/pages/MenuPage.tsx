@@ -11,6 +11,7 @@ type MenuPageProps = {
     menuPageEyebrow: string;
     menuPageTitle: string;
     menuPageText: string;
+    menuDownloadInfo: string;
 
     footerCopyright: string;
     footerQrText: string;
@@ -46,6 +47,10 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
         >
           Ladda ner avhämtningsmeny
         </a>
+
+        <p className="menu-download-info">
+          {t.menuDownloadInfo}
+        </p>
       </section>
 
       <MenuSection language={language} />

@@ -22,6 +22,8 @@ export const translations = {
     menuPageTitle: "Meny",
     menuPageText:
       "Här hittar du hela vår meny med pizzor, kebab, grillrätter och lunch.",
+    menuDownloadInfo:
+      "Är ni ett företag eller ett större sällskap? Ladda ner avhämtningsmenyn för att enklare samla ihop och hålla koll på allas beställningar.",
 
     lunchEyebrow: "Måndag till fredag",
     lunchTitle: "Lunch 125 kr",
@@ -54,7 +56,7 @@ export const translations = {
     contactMapTitle: "La Fornetto karta",
 
     footerCopyright:
-    "© 2026 La Fornetto Älvkarleby. Alla rättigheter förbehållna.",
+      "© 2026 La Fornetto Älvkarleby. Alla rättigheter förbehållna.",
     footerQrText: "Skanna för meny",
     footerQrAlt: "QR-kod till menyn",
   },
@@ -82,6 +84,8 @@ export const translations = {
     menuPageTitle: "Menu",
     menuPageText:
       "Here you can find our full menu with pizzas, kebab, grilled dishes and lunch.",
+    menuDownloadInfo:
+      "Are you a company or a larger group? Download the takeaway menu to make it easier to collect and keep track of everyone's orders.",
 
     lunchEyebrow: "Monday to Friday",
     lunchTitle: "Lunch 125 SEK",
@@ -114,7 +118,7 @@ export const translations = {
     contactMapTitle: "La Fornetto map",
 
     footerCopyright:
-    "© 2026 La Fornetto Älvkarleby. All rights reserved.",
+      "© 2026 La Fornetto Älvkarleby. All rights reserved.",
     footerQrText: "Scan for menu",
     footerQrAlt: "QR code to the menu",
   },
