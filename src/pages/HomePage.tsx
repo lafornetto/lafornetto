@@ -43,6 +43,10 @@ type HomePageProps = {
     lunchTitle: string;
     lunchText: string;
 
+    restaurantGalleryEyebrow: string;
+    restaurantGalleryTitle: string;
+    restaurantGalleryText: string;
+
     giftCardEyebrow: string;
     giftCardTitle: string;
     giftCardText: string;
@@ -98,9 +102,9 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
       <CateringSection />
       <section className="restaurant-gallery">
         <div className="section-heading">
-          <p className="eyebrow">Välkommen in</p>
-          <h2>Ät på plats hos oss</h2>
-          <p>En avslappnad miljö för lunch, middag och en stund tillsammans.</p>
+          <p className="eyebrow">{t.restaurantGalleryEyebrow}</p>
+        <h2>{t.restaurantGalleryTitle}</h2>
+        <p>{t.restaurantGalleryText}</p>
         </div>
 
         <div className="restaurant-gallery-grid">

@@ -17,6 +17,11 @@ export const translations = {
     aboutTextSecond:
       "Oavsett om du vill äta på plats, hämta mat eller beställa lunch är du varmt välkommen till oss på Östanåvägen 15.",
 
+    restaurantGalleryEyebrow: "Välkommen in",
+    restaurantGalleryTitle: "Ät på plats hos oss",
+    restaurantGalleryText:
+      "En avslappnad miljö för lunch, middag och en stund tillsammans – med stor parkering precis intill restaurangen.",
+
     menuPageBack: "← Till startsidan",
     menuPageEyebrow: "La Fornetto Älvkarleby",
     menuPageTitle: "Meny",
@@ -78,6 +83,11 @@ export const translations = {
       "La Fornetto is a restaurant, pub and pizzeria in Älvkarleby. We serve pizza, kebab, grilled dishes, pasta, salads and lunch in a warm and relaxed environment.",
     aboutTextSecond:
       "Whether you want to dine in, pick up food or order lunch, you are warmly welcome to visit us at Östanåvägen 15.",
+
+    restaurantGalleryEyebrow: "Welcome inside",
+    restaurantGalleryTitle: "Dine in with us",
+    restaurantGalleryText:
+      "A relaxed setting for lunch, dinner and time together – with a large parking area right next to the restaurant.",
 
     menuPageBack: "← Back to home",
     menuPageEyebrow: "La Fornetto Älvkarleby",
