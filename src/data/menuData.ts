@@ -333,6 +333,14 @@ export const menuCategories: MenuCategory[] = [
         price: "145 kr",
       },
       {
+        name: { sv: "Kycklingkebab pizza", en: "Chicken Kebab pizza" },
+        description: {
+          sv: "Kycklingkebab, tomat, lök, feferoni, valfri sås",
+          en: "Chicken kebab, tomato, onion, pepperoni peppers, optional sauce",
+        },
+        price: "150 kr",
+      },
+      {
         name: { sv: "Amigo", en: "Amigo" },
         description: {
           sv: "Köttfärs, tacosås, jalapeño, vitlökssås",
@@ -392,6 +400,14 @@ export const menuCategories: MenuCategory[] = [
         },
         price: "120 kr",
       },
+      {
+        name: { sv: "Mixtarlik", en: "Mixed plate" },
+        description: {
+          sv: "Pommes eller ris, kebabkött, kycklingkebab, isbergssallad, rödlök, tomater, feferoni",
+          en: "Fries or rice, kebab meat, chicken kebab, iceberg lettuce, red onion, tomatoes, pepperoni peppers",
+        },
+        price: "135 kr",
+      },
     ],
   },
   {
@@ -436,6 +452,14 @@ export const menuCategories: MenuCategory[] = [
         },
         price: "135 kr",
       },
+      {
+        name: { sv: "Kycklingkebab", en: "Chicken kebab" },
+        description: {
+          sv: "Kycklingkebabkött, rödlök, tomater, feferoni ochisbergssallad.",
+          en: "Chicken kebab meat, red onion, tomato, pepperoni peppers and iceberg lettuce.",
+        },
+        price: "130 kr",
+      }
     ],
   },
   {
@@ -549,6 +573,14 @@ export const menuCategories: MenuCategory[] = [
         description: {
           sv: "Kycklingfilé, ananas och rödlök.",
           en: "Chicken fillet, pineapple and red onion.",
+        },
+        price: "130 kr",
+      },
+      {
+        name: { sv: "Kycklingkebabsallad", en: "Chicken kebab salad" },
+        description: {
+          sv: "Kycklingkebabkött, rödlök, tomater och feferoni.",
+          en: "Chicken kebab meat, red onion, tomato and pepperoni peppers.",
         },
         price: "130 kr",
       },
