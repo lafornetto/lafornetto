@@ -14,6 +14,7 @@ import pastaImage from "../assets/images/pasta-1.jpg";
 import restaurantImageOne from "../assets/images/resturange-1.jpg";
 import saladImage from "../assets/images/sallad-1.jpg";
 import restaurantImageTwo from "../assets/images/resturange-2.jpg";
+import counterImage from "../assets/images/resturange-3.jpg";
 
 import pizzaThreeImage from "../assets/images/pizza-3.jpg";
 import pastaTwoImage from "../assets/images/pasta-2.jpg";
@@ -122,6 +123,11 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
           <img
             src={restaurantImageOne}
             alt="Interiör från La Fornetto"
+          />
+
+          <img
+            src={counterImage}
+            alt="Kassa och beställningsdisk på La Fornetto"
           />
 
           <img
