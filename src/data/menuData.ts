@@ -901,6 +901,14 @@ export const menuCategories: MenuCategory[] = [
         price: "45 kr",
       },
       {
+        name: { sv: "Stor pommes", en: "Large fries" },
+        description: {
+          sv: "",
+          en: "",
+        },
+        price: "60 kr",
+      },
+      {
         name: { sv: "Jalapeno pappers", en: "Jalapeno peppers" },
         description: {
           sv: "Jalapeno pappers 5st med sås.",
