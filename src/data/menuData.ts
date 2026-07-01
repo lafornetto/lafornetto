@@ -908,7 +908,22 @@ export const menuCategories: MenuCategory[] = [
         },
         price: "100 kr",
       },
-      
+      {
+        name: { sv: " Chilicheese", en: "Chilicheese" },
+        description: {
+          sv: "Chilicheese 6st.",
+          en: "Chilicheese 6 pcs.",
+        },
+        price: "50 kr",
+      },
+      {
+        name: { sv: " Mozarella sticks", en: "Mozzarella sticks" },
+        description: {
+          sv: "Mozarella sticks 5st.",
+          en: "Mozzarella sticks 5 pcs.",
+        },
+        price: "50 kr",
+      },
     ],
   },
 ];
