@@ -465,6 +465,14 @@ export const menuCategories: MenuCategory[] = [
     },
     items: [
       {
+        name: { sv: "Falafel med bröd", en: "Falafel with bread" },
+        description: {
+          sv: "Falafelkött i färskbakat bröd, isbergssallad, rödlök, tomater, feferoni",
+          en: "Falafel meat in freshly baked bread, iceberg lettuce, red onion, tomatoes, pepperoni peppers",
+        },
+        price: "125 kr",
+      },
+      {
         name: { sv: "Falafeltallrik", en: "Falafel plate" },
         description: {
           sv: "Pommes eller ris, isbergssallad, tomat, gurka, lök, feferoni",
