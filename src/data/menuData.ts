@@ -452,14 +452,6 @@ export const menuCategories: MenuCategory[] = [
         },
         price: "135 kr",
       },
-      {
-        name: { sv: "Kycklingkebab", en: "Chicken kebab" },
-        description: {
-          sv: "Kycklingkebabkött, rödlök, tomater, feferoni ochisbergssallad.",
-          en: "Chicken kebab meat, red onion, tomato, pepperoni peppers and iceberg lettuce.",
-        },
-        price: "130 kr",
-      }
     ],
   },
   {
