@@ -254,7 +254,7 @@ a {
 .about-section {
   position: relative;
   max-width: 900px;
-  margin: -45px auto 90px;
+  margin: 35px auto 90px;
   padding: 42px;
   text-align: center;
   background: var(--white);
