@@ -14,13 +14,10 @@ export function MenuSection({ language }: MenuSectionProps) {
         <p className="menu-intro">{category.intro[language]}</p>
       )}
 
-      {category.items.map((item, index) => (
+      {category.items.map((item) => (
         <div className="menu-item" key={item.name.sv}>
           <div>
-            <h4>
-              {category.title.sv === "Pizzor" ? `${index + 1}. ` : ""}
-              {item.name[language]}
-            </h4>
+            <h4>{item.name[language]}</h4>
 
             {item.description[language] ? (
               <p>{item.description[language]}</p>
