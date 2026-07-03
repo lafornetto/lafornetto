@@ -20,6 +20,8 @@ import pizzaThreeImage from "../assets/images/pizza-3.jpg";
 import pastaTwoImage from "../assets/images/pasta-2.jpg";
 import saladTwoImage from "../assets/images/sallad-2.jpg";
 
+import { NewsSection } from "../components/NewsSection";
+
 type HomePageProps = {
   language: "sv" | "en";
   setLanguage: Dispatch<SetStateAction<"sv" | "en">>;
@@ -86,6 +88,8 @@ export function HomePage({ language, setLanguage, t }: HomePageProps) {
   return (
     <>
       <Hero language={language} setLanguage={setLanguage} t={t} />
+
+      <NewsSection language={language} />
 
       <AboutSection t={t} />
       <section className="about-food-gallery">

@@ -38,6 +38,7 @@ export function Hero({ language, setLanguage, t }: HeroProps) {
         </a>
 
         <div className="nav-links">
+          <a href="#news">Nyheter</a>
           <a href="/meny">{t.navMenu}</a>
           <a href="#lunch">{t.navLunch}</a>
           <a href="#contact">{t.navContact}</a>
