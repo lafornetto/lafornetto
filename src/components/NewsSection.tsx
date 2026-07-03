@@ -1,3 +1,7 @@
+import hamburgareImage from "../assets/images/Hamburgare.png";
+import kycklingkebabSalladImage from "../assets/images/Kycklingkebab sallad.png";
+import pizzaImage from "../assets/images/Pizza.png";
+
 type NewsSectionProps = {
   language: "sv" | "en";
 };
@@ -36,6 +40,21 @@ export function NewsSection({ language }: NewsSectionProps) {
           <p>{content.kebab}</p>
           <p>{content.grill}</p>
           <p>{content.extras}</p>
+        </div>
+
+        <div className="news-gallery">
+          <img
+            src={hamburgareImage}
+            alt="Superstar hamburgare med pommes"
+          />
+          <img
+            src={kycklingkebabSalladImage}
+            alt="Kycklingkebabsallad"
+          />
+          <img
+            src={pizzaImage}
+            alt="Pizza från La Fornetto"
+          />
         </div>
       </div>
     </section>
