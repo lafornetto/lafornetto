@@ -5,17 +5,31 @@ type AboutSectionProps = {
     aboutTextFirst: string;
     aboutTextSecond: string;
   };
+  aboutEyebrow?: string | null;
+  aboutTitle?: string | null;
+  aboutText?: string | null;
 };
 
-export function AboutSection({ t }: AboutSectionProps) {
+export function AboutSection({
+  t,
+  aboutEyebrow,
+  aboutTitle,
+  aboutText,
+}: AboutSectionProps) {
   return (
     <section className="about-section">
-      <p className="eyebrow">{t.aboutEyebrow}</p>
-      <h2>{t.aboutTitle}</h2>
+      <p className="eyebrow">{aboutEyebrow || t.aboutEyebrow}</p>
 
-      <p>{t.aboutTextFirst}</p>
+      <h2>{aboutTitle || t.aboutTitle}</h2>
 
-      <p>{t.aboutTextSecond}</p>
+      {aboutText ? (
+        <p>{aboutText}</p>
+      ) : (
+        <>
+          <p>{t.aboutTextFirst}</p>
+          <p>{t.aboutTextSecond}</p>
+        </>
+      )}
     </section>
   );
 }

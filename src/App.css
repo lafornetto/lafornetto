@@ -704,6 +704,77 @@ a {
   transform: translateY(-4px);
 }
 
+.menu-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.menu-item-image {
+  width: 130px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.menu-item-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+.lunch-section {
+  padding: 90px 24px;
+  background: #123463;
+  color: white;
+  text-align: center;
+}
+
+.lunch-content {
+  max-width: 850px;
+  margin: 0 auto 48px;
+}
+
+.lunch-section h2 {
+  margin: 16px 0;
+}
+
+.lunch-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+.lunch-gallery-grid img {
+  width: 100%;
+  height: 280px;
+  display: block;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.lunch-text {
+  white-space: pre-line;
+}
+
+.opening-hours-text {
+  white-space: pre-line;
+}
+
+@media (max-width: 800px) {
+  .lunch-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lunch-gallery-grid img {
+    height: 240px;
+  }
+}
+
 @media (max-width: 650px) {
   .news-content {
     padding: 2.5rem 1.25rem;

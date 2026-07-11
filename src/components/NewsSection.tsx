@@ -2,11 +2,40 @@ import hamburgareImage from "../assets/images/Hamburgare.png";
 import kycklingkebabSalladImage from "../assets/images/Kycklingkebab sallad.png";
 import pizzaImage from "../assets/images/Pizza.png";
 
+const API_URL = "http://localhost:5246";
+
 type NewsSectionProps = {
   language: "sv" | "en";
+  newsImageOneUrl?: string | null;
+  newsImageTwoUrl?: string | null;
+  newsImageThreeUrl?: string | null;
+
+  newsEyebrow?: string | null;
+  newsTitle?: string | null;
+  newsText?: string | null;
 };
 
-export function NewsSection({ language }: NewsSectionProps) {
+function getImageUrl(imageUrl: string | null | undefined, fallback: string) {
+  if (!imageUrl) {
+    return fallback;
+  }
+
+  if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
+    return imageUrl;
+  }
+
+  return `${API_URL}${imageUrl}`;
+}
+
+export function NewsSection({
+  language,
+  newsImageOneUrl,
+  newsImageTwoUrl,
+  newsImageThreeUrl,
+  newsEyebrow,
+  newsTitle,
+  newsText,
+}: NewsSectionProps) {
   const content =
     language === "sv"
       ? {
@@ -28,33 +57,44 @@ export function NewsSection({ language }: NewsSectionProps) {
           extras: "Jalapeño peppers, chilicheese and mozzarella sticks.",
         };
 
+  const firstImage = getImageUrl(newsImageOneUrl, hamburgareImage);
+  const secondImage = getImageUrl(newsImageTwoUrl, kycklingkebabSalladImage);
+  const thirdImage = getImageUrl(newsImageThreeUrl, pizzaImage);
+
+  const newsTextLines = newsText
+    ?.split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
   return (
     <section id="news" className="news-section">
       <div className="news-content">
-        <p className="eyebrow">{content.eyebrow}</p>
-        <h2>{content.title}</h2>
+        <p className="eyebrow">{newsEyebrow || content.eyebrow}</p>
+
+        <h2>{newsTitle || content.title}</h2>
 
         <div className="news-text">
-          <p>{content.intro}</p>
-          <p>{content.pizza}</p>
-          <p>{content.kebab}</p>
-          <p>{content.grill}</p>
-          <p>{content.extras}</p>
+          {newsTextLines && newsTextLines.length > 0 ? (
+            newsTextLines.map((line, index) => (
+              <p key={`${line}-${index}`}>{line}</p>
+            ))
+          ) : (
+            <>
+              <p>{content.intro}</p>
+              <p>{content.pizza}</p>
+              <p>{content.kebab}</p>
+              <p>{content.grill}</p>
+              <p>{content.extras}</p>
+            </>
+          )}
         </div>
 
         <div className="news-gallery">
-          <img
-            src={hamburgareImage}
-            alt="Superstar hamburgare med pommes"
-          />
-          <img
-            src={kycklingkebabSalladImage}
-            alt="Kycklingkebabsallad"
-          />
-          <img
-            src={pizzaImage}
-            alt="Pizza från La Fornetto"
-          />
+          <img src={firstImage} alt="Nyhetsbild 1 från La Fornetto" />
+
+          <img src={secondImage} alt="Nyhetsbild 2 från La Fornetto" />
+
+          <img src={thirdImage} alt="Nyhetsbild 3 från La Fornetto" />
         </div>
       </div>
     </section>

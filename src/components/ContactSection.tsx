@@ -17,57 +17,118 @@ type ContactSectionProps = {
     contactOpenMapsButton: string;
     contactMapTitle: string;
   };
+
+  contactEyebrow?: string | null;
+  contactTitle?: string | null;
+
+  addressText?: string | null;
+  phoneText?: string | null;
+  instagramText?: string | null;
+  emailText?: string | null;
+  whatsappText?: string | null;
+
+  winterHoursTitle?: string | null;
+  winterHoursText?: string | null;
+
+  summerHoursTitle?: string | null;
+  summerHoursText?: string | null;
+
+  mapsButtonText?: string | null;
 };
 
-export function ContactSection({ t }: ContactSectionProps) {
+function getWhatsAppUrl(phoneNumber: string) {
+  const normalizedNumber = phoneNumber.replace(/\D/g, "");
+
+  return `https://wa.me/${normalizedNumber}`;
+}
+
+export function ContactSection({
+  t,
+  contactEyebrow,
+  contactTitle,
+  addressText,
+  phoneText,
+  instagramText,
+  emailText,
+  whatsappText,
+  winterHoursTitle,
+  winterHoursText,
+  summerHoursTitle,
+  summerHoursText,
+  mapsButtonText,
+}: ContactSectionProps) {
+  const displayedEmail = emailText || "lafornetto@hotmail.com";
+  const displayedWhatsApp = whatsappText || "+46 73 546 99 61";
+
+  const defaultWinterHours = `${t.contactMondayThursday}: 11:00–21:00
+${t.contactFridaySaturday}: 11:00–22:00
+${t.contactSunday}: 12:00–21:00`;
+
+  const defaultSummerHours = `${t.contactMondayThursday}: 11:00–22:00
+${t.contactFridaySaturday}: 11:00–23:00
+${t.contactSunday}: 11:00–22:00`;
+
   return (
     <section id="contact" className="contact-section-dark">
       <div className="contact-inner">
         <div className="contact-content">
-          <p className="eyebrow">{t.contactEyebrow}</p>
-          <h2>{t.contactTitle}</h2>
+          <p className="eyebrow">
+            {contactEyebrow || t.contactEyebrow}
+          </p>
+
+          <h2>{contactTitle || t.contactTitle}</h2>
 
           <p>
-            <strong>{t.contactAddressLabel}:</strong> Östanåvägen 15, 814 70 Älvkarleby
+            <strong>{t.contactAddressLabel}:</strong>{" "}
+            {addressText || "Östanåvägen 15, 814 70 Älvkarleby"}
           </p>
 
           <p>
-            <strong>{t.contactPhoneLabel}:</strong> 026-82 120
+            <strong>{t.contactPhoneLabel}:</strong>{" "}
+            {phoneText || "026-82 120"}
           </p>
 
           <p>
-            <strong>{t.contactInstagramLabel}:</strong> @Lafornetto2025
+            <strong>{t.contactInstagramLabel}:</strong>{" "}
+            {instagramText || "@Lafornetto2025"}
           </p>
+
           <p>
             <strong>E-post:</strong>{" "}
-            <a href="mailto:lafornetto@hotmail.com">
-              lafornetto@hotmail.com
+            <a href={`mailto:${displayedEmail}`}>
+              {displayedEmail}
             </a>
           </p>
 
           <p>
             <strong>WhatsApp:</strong>{" "}
             <a
-              href="https://wa.me/46735469961"
+              href={getWhatsAppUrl(displayedWhatsApp)}
               target="_blank"
               rel="noreferrer"
             >
-              +46 73 546 99 61
+              {displayedWhatsApp}
             </a>
           </p>
 
           <div className="opening-hours">
-            <strong>{t.contactWinterHoursTitle}</strong>
-            <span>{t.contactMondayThursday}: 11:00–21:00</span>
-            <span>{t.contactFridaySaturday}: 11:00–22:00</span>
-            <span>{t.contactSunday}: 12:00–21:00</span>
+            <strong>
+              {winterHoursTitle || t.contactWinterHoursTitle}
+            </strong>
+
+            <span className="opening-hours-text">
+              {winterHoursText || defaultWinterHours}
+            </span>
           </div>
 
           <div className="opening-hours">
-            <strong>{t.contactSummerHoursTitle}</strong>
-            <span>{t.contactMondayThursday}: 11:00–22:00</span>
-            <span>{t.contactFridaySaturday}: 11:00–23:00</span>
-            <span>{t.contactSunday}: 11:00–22:00</span>
+            <strong>
+              {summerHoursTitle || t.contactSummerHoursTitle}
+            </strong>
+
+            <span className="opening-hours-text">
+              {summerHoursText || defaultSummerHours}
+            </span>
           </div>
 
           <a
@@ -76,7 +137,7 @@ export function ContactSection({ t }: ContactSectionProps) {
             target="_blank"
             rel="noreferrer"
           >
-            {t.contactOpenMapsButton}
+            {mapsButtonText || t.contactOpenMapsButton}
           </a>
         </div>
 
@@ -85,7 +146,7 @@ export function ContactSection({ t }: ContactSectionProps) {
             title={t.contactMapTitle}
             src="https://www.google.com/maps?q=Östanåvägen%2015%2C%20814%2070%20Älvkarleby&output=embed"
             loading="lazy"
-          ></iframe>
+          />
         </div>
       </div>
     </section>

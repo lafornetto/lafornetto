@@ -2,6 +2,8 @@ import heroImage from "../assets/images/lafornetto-front.jpg";
 import logo from "../assets/images/la-fornetto-logo.png";
 import swedenFlag from "../assets/images/sweden-flag.png";
 
+const API_URL = "http://localhost:5246";
+
 type HeroProps = {
   language: "sv" | "en";
   setLanguage: React.Dispatch<React.SetStateAction<"sv" | "en">>;
@@ -15,26 +17,56 @@ type HeroProps = {
     callButton: string;
     menuButton: string;
   };
+  heroImageUrl?: string | null;
+  logoUrl?: string | null;
+
+  heroEyebrow?: string | null;
+  heroTitle?: string | null;
+  heroText?: string | null;
+  heroPrimaryButtonText?: string | null;
+  heroSecondaryButtonText?: string | null;
 };
 
-export function Hero({ language, setLanguage, t }: HeroProps) {
+function getImageUrl(imageUrl: string | null | undefined, fallback: string) {
+  if (!imageUrl) {
+    return fallback;
+  }
+
+  if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
+    return imageUrl;
+  }
+
+  return `${API_URL}${imageUrl}`;
+}
+
+export function Hero({
+  language,
+  setLanguage,
+  t,
+  heroImageUrl,
+  logoUrl,
+  heroEyebrow,
+  heroTitle,
+  heroText,
+  heroPrimaryButtonText,
+  heroSecondaryButtonText,
+}: HeroProps) {
+  const heroBackgroundImage = getImageUrl(heroImageUrl, heroImage);
+  const navbarLogo = getImageUrl(logoUrl, logo);
+
   return (
     <section
       className="hero"
       style={{
         backgroundImage: `
           linear-gradient(rgba(11,45,92,0.58), rgba(7,27,56,0.82)),
-          url(${heroImage})
+          url(${heroBackgroundImage})
         `,
       }}
     >
       <nav className="navbar">
         <a href="/" className="brand" aria-label="La Fornetto startsida">
-          <img
-            src={logo}
-            alt="La Fornetto"
-            className="navbar-logo"
-          />
+          <img src={navbarLogo} alt="La Fornetto" className="navbar-logo" />
         </a>
 
         <div className="nav-links">
@@ -70,17 +102,19 @@ export function Hero({ language, setLanguage, t }: HeroProps) {
       </nav>
 
       <div className="hero-content">
-        <p className="eyebrow">{t.heroEyebrow}</p>
-        <h1>{t.heroTitle}</h1>
-        <p>{t.heroText}</p>
+        <p className="eyebrow">{heroEyebrow || t.heroEyebrow}</p>
+
+        <h1>{heroTitle || t.heroTitle}</h1>
+
+        <p>{heroText || t.heroText}</p>
 
         <div className="hero-buttons">
           <a className="primary-btn" href="tel:+462682120">
-            {t.callButton}
+            {heroPrimaryButtonText || t.callButton}
           </a>
 
           <a className="secondary-btn" href="/meny">
-            {t.menuButton}
+            {heroSecondaryButtonText || t.menuButton}
           </a>
         </div>
       </div>
