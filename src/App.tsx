@@ -5,7 +5,8 @@ import { MenuPage } from "./pages/MenuPage";
 import { translations } from "./data/translations";
 import "./App.css";
 
-const API_URL = "http://localhost:5246";
+const API_URL =
+  "https://spoken-itself-periods-new.trycloudflare.com";
 const RESTAURANT_ID = 1;
 
 type RestaurantSettings = {

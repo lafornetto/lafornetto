@@ -2,7 +2,8 @@ import heroImage from "../assets/images/lafornetto-front.jpg";
 import logo from "../assets/images/la-fornetto-logo.png";
 import swedenFlag from "../assets/images/sweden-flag.png";
 
-const API_URL = "http://localhost:5246";
+const API_URL =
+  "https://spoken-itself-periods-new.trycloudflare.com";
 
 type HeroProps = {
   language: "sv" | "en";

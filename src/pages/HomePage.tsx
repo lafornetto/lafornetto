@@ -21,7 +21,8 @@ import pizzaThreeImage from "../assets/images/pizza-3.jpg";
 import pastaTwoImage from "../assets/images/pasta-2.jpg";
 import saladTwoImage from "../assets/images/sallad-2.jpg";
 
-const API_URL = "http://localhost:5246";
+const API_URL =
+  "https://spoken-itself-periods-new.trycloudflare.com";
 
 function getImageUrl(imageUrl: string | null | undefined, fallback: string) {
   if (!imageUrl) {
