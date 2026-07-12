@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Language } from "../data/menuData";
 
-const API_URL =
-  "https://spoken-itself-periods-new.trycloudflare.com";
+const API_URL = import.meta.env.VITE_API_URL;
 const RESTAURANT_ID = 1;
 
 type PublicAllergen = {

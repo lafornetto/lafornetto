@@ -2,8 +2,7 @@ import hamburgareImage from "../assets/images/Hamburgare.png";
 import kycklingkebabSalladImage from "../assets/images/Kycklingkebab sallad.png";
 import pizzaImage from "../assets/images/Pizza.png";
 
-const API_URL =
-  "https://spoken-itself-periods-new.trycloudflare.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 type NewsSectionProps = {
   language: "sv" | "en";
