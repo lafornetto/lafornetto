@@ -7,6 +7,7 @@ import { Footer } from "../components/Footer";
 import { CateringSection } from "../components/CateringSection";
 import { GiftCardSection } from "../components/GiftCardSection";
 import { NewsSection } from "../components/NewsSection";
+import { GoogleReviewsSection } from "../components/GoogleReviewsSection";
 
 import pizzaImage from "../assets/images/pizza-1.jpg";
 import kebabImage from "../assets/images/kebab-1.jpg";
@@ -362,7 +363,7 @@ export function HomePage({
       </section>
 
       <GiftCardSection t={t} />
-      <ContactSection
+            <ContactSection
         t={t}
         contactEyebrow={settings?.contactEyebrow}
         contactTitle={settings?.contactTitle}
@@ -377,6 +378,9 @@ export function HomePage({
         summerHoursText={settings?.summerHoursText}
         mapsButtonText={settings?.mapsButtonText}
       />
+
+      <GoogleReviewsSection />
+
       <Footer t={t} />
     </>
   );
