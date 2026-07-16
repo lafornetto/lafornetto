@@ -27,6 +27,7 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
           <button onClick={() => setLanguage("sv")} disabled={language === "sv"}>
             SV
           </button>
+
           <button onClick={() => setLanguage("en")} disabled={language === "en"}>
             EN
           </button>
@@ -37,7 +38,9 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
         </Link>
 
         <p className="eyebrow">{t.menuPageEyebrow}</p>
+
         <h1>{t.menuPageTitle}</h1>
+
         <p>{t.menuPageText}</p>
 
         <a
@@ -48,12 +51,20 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
           Ladda ner avhämtningsmeny
         </a>
 
-        <p className="menu-download-info">
-          {t.menuDownloadInfo}
-        </p>
+        <p className="menu-download-info">{t.menuDownloadInfo}</p>
+
+        <div className="menu-information">
+          <h2>Allergier och köttets ursprung</h2>
+
+          <p>
+            Har du frågor om allergener eller köttets ursprung? Fråga gärna
+            personalen.
+          </p>
+        </div>
       </section>
 
       <MenuSection language={language} />
+
       <Footer t={t} />
     </>
   );

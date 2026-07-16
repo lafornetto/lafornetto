@@ -857,6 +857,26 @@ a {
   color: #1f3f35;
 }
 
+.menu-information {
+  width: min(100%, 700px);
+  margin: 2rem auto 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(216, 183, 123, 0.65);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.menu-information h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.menu-information p {
+  margin: 0;
+  line-height: 1.6;
+}
+
 @media (max-width: 600px) {
   .google-rating {
     flex-direction: column;
