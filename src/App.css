@@ -877,6 +877,41 @@ a {
   line-height: 1.6;
 }
 
+.food-control-section {
+  max-width: 760px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 16px;
+  background: #f8f1e6;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.food-control-section h2 {
+  margin: 0.5rem 0 1rem;
+  color: #1f3f35;
+}
+
+.food-control-section p {
+  margin: 0 auto 1.5rem;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+.food-control-button {
+  display: inline-block;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  background: #2f5d50;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.food-control-button:hover {
+  background: #1f3f35;
+}
+
 @media (max-width: 600px) {
   .google-rating {
     flex-direction: column;
