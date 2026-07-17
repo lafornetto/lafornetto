@@ -63,26 +63,6 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
         </div>
       </section>
 
-      <section className="food-control-section">
-        <p className="eyebrow">Trygg matservering</p>
-
-        <h2>Livsmedelskontroll utan avvikelse</h2>
-
-        <p>
-          La Fornetto kontrollerades av Älvkarleby kommun den 20 maj 2026.
-          Kontrollen genomfördes utan avvikelse.
-        </p>
-
-        <a
-          href="/documents/livsmedelskontroll.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="food-control-button"
-        >
-          Visa livsmedelskontroll
-        </a>
-      </section>
-
       <MenuSection language={language} />
 
       <Footer t={t} />
