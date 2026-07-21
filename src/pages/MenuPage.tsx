@@ -1,6 +1,8 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+
 import { MenuSection } from "../components/MenuSection";
+import { Cart } from "../components/Cart";
 import { Footer } from "../components/Footer";
 
 type MenuPageProps = {
@@ -24,11 +26,19 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
     <>
       <section className="menu-page-hero">
         <div className="language-switcher">
-          <button onClick={() => setLanguage("sv")} disabled={language === "sv"}>
+          <button
+            type="button"
+            onClick={() => setLanguage("sv")}
+            disabled={language === "sv"}
+          >
             SV
           </button>
 
-          <button onClick={() => setLanguage("en")} disabled={language === "en"}>
+          <button
+            type="button"
+            onClick={() => setLanguage("en")}
+            disabled={language === "en"}
+          >
             EN
           </button>
         </div>
@@ -63,7 +73,13 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
         </div>
       </section>
 
-      <MenuSection language={language} />
+      <main className="menu-order-page">
+        <MenuSection language={language} />
+
+        <section className="cart-section">
+          <Cart />
+        </section>
+      </main>
 
       <Footer t={t} />
     </>

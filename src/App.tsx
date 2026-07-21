@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { HomePage } from "./pages/HomePage";
 import { MenuPage } from "./pages/MenuPage";
 import { translations } from "./data/translations";
+import { CartProvider } from "./context/CartContext";
+
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -119,17 +122,17 @@ function App() {
     async function loadSettings() {
       try {
         const response = await fetch(
-          `${API_URL}/api/restaurants/${RESTAURANT_ID}/settings`
+          `${API_URL}/api/restaurants/${RESTAURANT_ID}/settings`,
         );
 
         if (!response.ok) {
-          throw new Error("Kunde inte hämta settings.");
+          throw new Error("Kunde inte hämta inställningarna.");
         }
 
         const data: RestaurantSettings = await response.json();
         setSettings(data);
       } catch (error) {
-        console.error("Kunde inte hämta settings:", error);
+        console.error("Kunde inte hämta inställningarna:", error);
       }
     }
 
@@ -137,32 +140,34 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              language={language}
-              setLanguage={setLanguage}
-              t={t}
-              settings={settings}
-            />
-          }
-        />
+    <CartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                language={language}
+                setLanguage={setLanguage}
+                t={t}
+                settings={settings}
+              />
+            }
+          />
 
-        <Route
-          path="/meny"
-          element={
-            <MenuPage
-              language={language}
-              setLanguage={setLanguage}
-              t={t}
-            />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/meny"
+            element={
+              <MenuPage
+                language={language}
+                setLanguage={setLanguage}
+                t={t}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 
