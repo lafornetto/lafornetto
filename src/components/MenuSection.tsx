@@ -13,7 +13,9 @@ type PublicAllergen = {
 type PublicMenuItem = {
   id: number;
   name: string;
+  nameEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   price: number;
   priceText: string | null;
   imageUrl: string | null;
@@ -24,7 +26,9 @@ type PublicMenuItem = {
 type PublicMenuCategory = {
   id: number;
   name: string;
+  nameEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   sortOrder: number;
   items: PublicMenuItem[];
 };
@@ -33,16 +37,50 @@ type MenuSectionProps = {
   language: Language;
 };
 
+const allergenTranslations: Record<string, string> = {
+  gluten: "Gluten",
+  mjölk: "Milk",
+  ägg: "Egg",
+  nötter: "Nuts",
+  vegetarisk: "Vegetarian",
+  vegan: "Vegan",
+  stark: "Spicy",
+  halal: "Halal",
+};
+
+function getLocalizedText(
+  language: Language,
+  swedishText: string | null | undefined,
+  englishText: string | null | undefined
+) {
+  if (language === "en") {
+    return englishText?.trim() || swedishText?.trim() || "";
+  }
+
+  return swedishText?.trim() || "";
+}
+
+function translateAllergen(name: string, language: Language) {
+  if (language === "sv") {
+    return name;
+  }
+
+  return allergenTranslations[name.toLowerCase()] ?? name;
+}
+
 export function MenuSection({ language }: MenuSectionProps) {
-  const [menuCategories, setMenuCategories] = useState<PublicMenuCategory[]>([]);
+  const [menuCategories, setMenuCategories] = useState<
+    PublicMenuCategory[]
+  >([]);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadMenu() {
       try {
         setIsLoading(true);
-        setErrorMessage("");
+        setHasError(false);
 
         const response = await fetch(
           `${API_URL}/api/restaurants/${RESTAURANT_ID}/menu`
@@ -54,10 +92,9 @@ export function MenuSection({ language }: MenuSectionProps) {
 
         const data: PublicMenuCategory[] = await response.json();
         setMenuCategories(data);
-      } catch {
-        setErrorMessage(
-          "Menyn kunde inte laddas just nu. Försök igen om en stund."
-        );
+      } catch (error) {
+        console.error("Kunde inte hämta menyn:", error);
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -67,46 +104,89 @@ export function MenuSection({ language }: MenuSectionProps) {
   }, []);
 
   function formatPrice(item: PublicMenuItem) {
-    return item.priceText || `${item.price} kr`;
+    if (item.priceText) {
+      return item.priceText;
+    }
+
+    return language === "sv"
+      ? `${item.price} kr`
+      : `${item.price} SEK`;
   }
 
   function renderCategory(category: PublicMenuCategory) {
+    const categoryName = getLocalizedText(
+      language,
+      category.name,
+      category.nameEn
+    );
+
+    const categoryDescription = getLocalizedText(
+      language,
+      category.description,
+      category.descriptionEn
+    );
+
     return (
       <article className="menu-card" key={category.id}>
-        <h3>{category.name}</h3>
+        <h3>{categoryName}</h3>
 
-        {category.description && (
-          <p className="menu-intro">{category.description}</p>
+        {categoryDescription && (
+          <p className="menu-intro">{categoryDescription}</p>
         )}
 
-        {category.items.map((item) => (
-          <div className="menu-item" key={item.id}>
-            {item.imageUrl && (
-              <img
-                className="menu-item-image"
-                src={item.imageUrl}
-                alt={item.name}
-              />
-            )}
+        {category.items.map((item) => {
+          const itemName = getLocalizedText(
+            language,
+            item.name,
+            item.nameEn
+          );
 
-            <div className="menu-item-content">
-              <div>
-                <h4>{item.name}</h4>
+          const itemDescription = getLocalizedText(
+            language,
+            item.description,
+            item.descriptionEn
+          );
 
-                {item.description && <p>{item.description}</p>}
+          return (
+            <div className="menu-item" key={item.id}>
+              {item.imageUrl && (
+                <img
+                  className="menu-item-image"
+                  src={item.imageUrl}
+                  alt={itemName}
+                />
+              )}
 
-                {item.allergens.length > 0 && (
-                  <p className="menu-allergens">
-                    Allergener:{" "}
-                    {item.allergens.map((allergen) => allergen.name).join(", ")}
-                  </p>
-                )}
+              <div className="menu-item-content">
+                <div>
+                  <h4>{itemName}</h4>
+
+                  {itemDescription && (
+                    <p>{itemDescription}</p>
+                  )}
+
+                  {item.allergens.length > 0 && (
+                    <p className="menu-allergens">
+                      {language === "sv"
+                        ? "Allergener:"
+                        : "Allergens:"}{" "}
+                      {item.allergens
+                        .map((allergen) =>
+                          translateAllergen(
+                            allergen.name,
+                            language
+                          )
+                        )
+                        .join(", ")}
+                    </p>
+                  )}
+                </div>
+
+                <strong>{formatPrice(item)}</strong>
               </div>
-
-              <strong>{formatPrice(item)}</strong>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </article>
     );
   }
@@ -114,21 +194,30 @@ export function MenuSection({ language }: MenuSectionProps) {
   if (isLoading) {
     return (
       <section id="menu" className="section">
-        <p className="menu-status">Hämtar menyn...</p>
+        <p className="menu-status">
+          {language === "sv"
+            ? "Hämtar menyn..."
+            : "Loading menu..."}
+        </p>
       </section>
     );
   }
 
-  if (errorMessage) {
+  if (hasError) {
     return (
       <section id="menu" className="section">
-        <p className="menu-status menu-status-error">{errorMessage}</p>
+        <p className="menu-status menu-status-error">
+          {language === "sv"
+            ? "Menyn kunde inte laddas just nu. Försök igen om en stund."
+            : "The menu could not be loaded right now. Please try again shortly."}
+        </p>
       </section>
     );
   }
 
   const pizzaCategory = menuCategories.find(
-    (category) => category.name.toLowerCase() === "pizzor"
+    (category) =>
+      category.name.trim().toLowerCase() === "pizzor"
   );
 
   const otherCategories = menuCategories.filter(
@@ -137,17 +226,21 @@ export function MenuSection({ language }: MenuSectionProps) {
 
   return (
     <section id="menu" className="section">
-      {pizzaCategory && <div className="pizza-menu">{renderCategory(pizzaCategory)}</div>}
-
-      <div className="menu-grid">{otherCategories.map(renderCategory)}</div>
-
-      {menuCategories.length === 0 && (
-        <p className="menu-status">Det finns ingen meny att visa ännu.</p>
+      {pizzaCategory && (
+        <div className="pizza-menu">
+          {renderCategory(pizzaCategory)}
+        </div>
       )}
 
-      {language === "en" && (
-        <p className="menu-language-note">
-          The menu is currently shown in Swedish.
+      <div className="menu-grid">
+        {otherCategories.map(renderCategory)}
+      </div>
+
+      {menuCategories.length === 0 && (
+        <p className="menu-status">
+          {language === "sv"
+            ? "Det finns ingen meny att visa ännu."
+            : "There is no menu to display yet."}
         </p>
       )}
     </section>

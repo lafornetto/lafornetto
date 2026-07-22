@@ -1,34 +1,50 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+
+import type { Translation } from "../data/translations";
+
 import { MenuSection } from "../components/MenuSection";
 import { Footer } from "../components/Footer";
 
-type MenuPageProps = {
-  language: "sv" | "en";
-  setLanguage: Dispatch<SetStateAction<"sv" | "en">>;
-  t: {
-    menuPageBack: string;
-    menuPageEyebrow: string;
-    menuPageTitle: string;
-    menuPageText: string;
-    menuDownloadInfo: string;
+type Language = "sv" | "en";
 
-    footerCopyright: string;
-    footerQrText: string;
-    footerQrAlt: string;
-  };
+type MenuPageProps = {
+  language: Language;
+  setLanguage: Dispatch<SetStateAction<Language>>;
+  t: Translation;
 };
 
-export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
+export function MenuPage({
+  language,
+  setLanguage,
+  t,
+}: MenuPageProps) {
   return (
     <>
       <section className="menu-page-hero">
-        <div className="language-switcher">
-          <button onClick={() => setLanguage("sv")} disabled={language === "sv"}>
+        <div
+          className="language-switcher"
+          aria-label={
+            language === "sv"
+              ? "Välj språk"
+              : "Select language"
+          }
+        >
+          <button
+            type="button"
+            onClick={() => setLanguage("sv")}
+            disabled={language === "sv"}
+            aria-pressed={language === "sv"}
+          >
             SV
           </button>
 
-          <button onClick={() => setLanguage("en")} disabled={language === "en"}>
+          <button
+            type="button"
+            onClick={() => setLanguage("en")}
+            disabled={language === "en"}
+            aria-pressed={language === "en"}
+          >
             EN
           </button>
         </div>
@@ -48,18 +64,17 @@ export function MenuPage({ language, setLanguage, t }: MenuPageProps) {
           download
           className="menu-download-button"
         >
-          Ladda ner avhämtningsmeny
+          {t.menuDownloadButton}
         </a>
 
-        <p className="menu-download-info">{t.menuDownloadInfo}</p>
+        <p className="menu-download-info">
+          {t.menuDownloadInfo}
+        </p>
 
         <div className="menu-information">
-          <h2>Allergier och köttets ursprung</h2>
+          <h2>{t.menuInformationTitle}</h2>
 
-          <p>
-            Har du frågor om allergener eller köttets ursprung? Fråga gärna
-            personalen.
-          </p>
+          <p>{t.menuInformationText}</p>
         </div>
       </section>
 

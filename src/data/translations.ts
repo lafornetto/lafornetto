@@ -53,8 +53,15 @@ export const translations = {
     menuPageTitle: "Meny",
     menuPageText:
       "Här hittar du hela vår meny med pizzor, kebab, grillrätter och lunch.",
+
+    menuDownloadButton: "Ladda ner avhämtningsmeny",
+
     menuDownloadInfo:
       "Är ni ett företag eller ett större sällskap? Ladda ner avhämtningsmenyn för att enklare samla ihop och hålla koll på allas beställningar.",
+
+    menuInformationTitle: "Allergier och köttets ursprung",
+    menuInformationText:
+      "Har du frågor om allergener eller köttets ursprung? Fråga gärna personalen.",
 
     giftCardEyebrow: "Presentkort",
     giftCardTitle: "Ge bort en smakupplevelse",
@@ -154,8 +161,15 @@ export const translations = {
     menuPageTitle: "Menu",
     menuPageText:
       "Here you can find our full menu of pizzas, kebab dishes, grilled dishes and lunch options.",
+
+    menuDownloadButton: "Download takeaway menu",
+
     menuDownloadInfo:
       "Are you ordering for a company or a larger group? Download the takeaway order form to make it easier to collect and keep track of everyone's orders.",
+
+    menuInformationTitle: "Allergies and meat origin",
+    menuInformationText:
+      "If you have questions about allergens or the origin of the meat, please ask our staff.",
 
     giftCardEyebrow: "Gift cards",
     giftCardTitle: "Give the gift of great food",
