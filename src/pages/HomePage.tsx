@@ -1,4 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
+import type { Translation } from "../data/translations";
+
 import { Hero } from "../components/Hero";
 import { AboutSection } from "../components/AboutSection";
 import { LunchSection } from "../components/LunchSection";
@@ -24,16 +26,36 @@ import saladTwoImage from "../assets/images/sallad-2.jpg";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function getImageUrl(imageUrl: string | null | undefined, fallback: string) {
+type Language = "sv" | "en";
+
+function getImageUrl(
+  imageUrl: string | null | undefined,
+  fallback: string,
+) {
   if (!imageUrl) {
     return fallback;
   }
 
-  if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
+  if (
+    imageUrl.startsWith("http://") ||
+    imageUrl.startsWith("https://")
+  ) {
     return imageUrl;
   }
 
   return `${API_URL}${imageUrl}`;
+}
+
+function getLocalizedText(
+  language: Language,
+  adminText: string | null | undefined,
+  translatedText: string,
+) {
+  if (language === "en") {
+    return translatedText;
+  }
+
+  return adminText?.trim() || translatedText;
 }
 
 type RestaurantSettings = {
@@ -138,66 +160,10 @@ type RestaurantSettings = {
 };
 
 type HomePageProps = {
-  language: "sv" | "en";
-  setLanguage: Dispatch<SetStateAction<"sv" | "en">>;
+  language: Language;
+  setLanguage: Dispatch<SetStateAction<Language>>;
   settings: RestaurantSettings | null;
-  t: {
-    navMenu: string;
-    navLunch: string;
-    navContact: string;
-
-    heroEyebrow: string;
-    heroTitle: string;
-    heroText: string;
-    callButton: string;
-    menuButton: string;
-
-    aboutEyebrow: string;
-    aboutTitle: string;
-    aboutTextFirst: string;
-    aboutTextSecond: string;
-
-    menuPageBack: string;
-    menuPageEyebrow: string;
-    menuPageTitle: string;
-    menuPageText: string;
-
-    lunchEyebrow: string;
-    lunchTitle: string;
-    lunchText: string;
-
-    restaurantGalleryEyebrow: string;
-    restaurantGalleryTitle: string;
-    restaurantGalleryText: string;
-
-    giftCardEyebrow: string;
-    giftCardTitle: string;
-    giftCardText: string;
-    giftCardText2: string;
-    giftCardNote: string;
-    giftCardImageAlt: string;
-
-    contactEyebrow: string;
-    contactTitle: string;
-
-    contactAddressLabel: string;
-    contactPhoneLabel: string;
-    contactInstagramLabel: string;
-
-    contactWinterHoursTitle: string;
-    contactSummerHoursTitle: string;
-
-    contactMondayThursday: string;
-    contactFridaySaturday: string;
-    contactSunday: string;
-
-    contactOpenMapsButton: string;
-    contactMapTitle: string;
-
-    footerCopyright: string;
-    footerQrText: string;
-    footerQrAlt: string;
-  };
+  t: Translation;
 };
 
 export function HomePage({
@@ -223,6 +189,7 @@ export function HomePage({
 
       <NewsSection
         language={language}
+        t={t}
         newsImageOneUrl={settings?.newsImageOneUrl}
         newsImageTwoUrl={settings?.newsImageTwoUrl}
         newsImageThreeUrl={settings?.newsImageThreeUrl}
@@ -232,6 +199,7 @@ export function HomePage({
       />
 
       <AboutSection
+        language={language}
         t={t}
         aboutEyebrow={settings?.aboutEyebrow}
         aboutTitle={settings?.aboutTitle}
@@ -241,95 +209,165 @@ export function HomePage({
       <section className="about-food-gallery">
         <div className="about-food-gallery-grid">
           <img
-            src={getImageUrl(settings?.aboutImageOneUrl, pizzaThreeImage)}
-            alt="Pizza från La Fornetto"
+            src={getImageUrl(
+              settings?.aboutImageOneUrl,
+              pizzaThreeImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Pizza från La Fornetto"
+                : "Pizza from La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.aboutImageTwoUrl, pastaTwoImage)}
-            alt="Pasta från La Fornetto"
+            src={getImageUrl(
+              settings?.aboutImageTwoUrl,
+              pastaTwoImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Pasta från La Fornetto"
+                : "Pasta from La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.aboutImageThreeUrl, saladTwoImage)}
-            alt="Sallad från La Fornetto"
+            src={getImageUrl(
+              settings?.aboutImageThreeUrl,
+              saladTwoImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Sallad från La Fornetto"
+                : "Salad from La Fornetto"
+            }
           />
         </div>
       </section>
 
       <LunchSection
+        language={language}
         t={t}
         lunchEyebrow={settings?.lunchEyebrow}
         lunchTitle={settings?.lunchTitle}
         lunchText={settings?.lunchText}
         lunchImageOneUrl={getImageUrl(
           settings?.lunchImageOneUrl,
-          pizzaImage
+          pizzaImage,
         )}
         lunchImageTwoUrl={getImageUrl(
           settings?.lunchImageTwoUrl,
-          kebabImage
+          kebabImage,
         )}
         lunchImageThreeUrl={getImageUrl(
           settings?.lunchImageThreeUrl,
-          pastaImage
+          pastaImage,
         )}
       />
 
       <section className="food-gallery">
         <div className="section-heading">
           <p className="eyebrow">
-            {settings?.foodSectionEyebrow || "Något för alla smaker"}
+            {getLocalizedText(
+              language,
+              settings?.foodSectionEyebrow,
+              t.foodSectionEyebrow,
+            )}
           </p>
 
           <h2>
-            {settings?.foodSectionTitle || "Favoriter från vår meny"}
+            {getLocalizedText(
+              language,
+              settings?.foodSectionTitle,
+              t.foodSectionTitle,
+            )}
           </h2>
 
           <p>
-            {settings?.foodSectionText ||
-              "Pizza, kebab, grillrätter, sallader och mycket mer."}
+            {getLocalizedText(
+              language,
+              settings?.foodSectionText,
+              t.foodSectionText,
+            )}
           </p>
         </div>
 
         <div className="food-gallery-grid">
           <img
-            src={getImageUrl(settings?.foodImageOneUrl, pizzaImage)}
-            alt="Pizza från La Fornetto"
+            src={getImageUrl(
+              settings?.foodImageOneUrl,
+              pizzaImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Pizza från La Fornetto"
+                : "Pizza from La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.foodImageTwoUrl, kebabImage)}
-            alt="Kebab från La Fornetto"
+            src={getImageUrl(
+              settings?.foodImageTwoUrl,
+              kebabImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Kebab från La Fornetto"
+                : "Kebab from La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.foodImageThreeUrl, pastaImage)}
-            alt="Mat från La Fornetto"
+            src={getImageUrl(
+              settings?.foodImageThreeUrl,
+              pastaImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Mat från La Fornetto"
+                : "Food from La Fornetto"
+            }
           />
         </div>
       </section>
 
       <CateringSection
+        language={language}
+        t={t}
         cateringEyebrow={settings?.cateringEyebrow}
         cateringTitle={settings?.cateringTitle}
         cateringTextOne={settings?.cateringTextOne}
         cateringTextTwo={settings?.cateringTextTwo}
-        cateringContactButtonText={settings?.cateringContactButtonText}
+        cateringContactButtonText={
+          settings?.cateringContactButtonText
+        }
       />
 
       <section className="restaurant-gallery">
         <div className="section-heading">
           <p className="eyebrow">
-            {settings?.restaurantGalleryEyebrow || t.restaurantGalleryEyebrow}
+            {getLocalizedText(
+              language,
+              settings?.restaurantGalleryEyebrow,
+              t.restaurantGalleryEyebrow,
+            )}
           </p>
 
           <h2>
-            {settings?.restaurantGalleryTitle || t.restaurantGalleryTitle}
+            {getLocalizedText(
+              language,
+              settings?.restaurantGalleryTitle,
+              t.restaurantGalleryTitle,
+            )}
           </h2>
 
           <p>
-            {settings?.restaurantGalleryText || t.restaurantGalleryText}
+            {getLocalizedText(
+              language,
+              settings?.restaurantGalleryText,
+              t.restaurantGalleryText,
+            )}
           </p>
         </div>
 
@@ -337,33 +375,57 @@ export function HomePage({
           <img
             src={getImageUrl(
               settings?.restaurantImageOneUrl,
-              restaurantImageOne
+              restaurantImageOne,
             )}
-            alt="Interiör från La Fornetto"
+            alt={
+              language === "sv"
+                ? "Interiör från La Fornetto"
+                : "Interior of La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.restaurantImageTwoUrl, counterImage)}
-            alt="Kassa och beställningsdisk på La Fornetto"
+            src={getImageUrl(
+              settings?.restaurantImageTwoUrl,
+              counterImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Kassa och beställningsdisk på La Fornetto"
+                : "Counter and ordering area at La Fornetto"
+            }
           />
 
           <img
-            src={getImageUrl(settings?.restaurantImageThreeUrl, saladImage)}
-            alt="Sallad från La Fornetto"
+            src={getImageUrl(
+              settings?.restaurantImageThreeUrl,
+              saladImage,
+            )}
+            alt={
+              language === "sv"
+                ? "Sallad från La Fornetto"
+                : "Salad from La Fornetto"
+            }
           />
 
           <img
             src={getImageUrl(
               settings?.restaurantImageFourUrl,
-              restaurantImageTwo
+              restaurantImageTwo,
             )}
-            alt="Sittplatser inne på La Fornetto"
+            alt={
+              language === "sv"
+                ? "Sittplatser inne på La Fornetto"
+                : "Indoor seating at La Fornetto"
+            }
           />
         </div>
       </section>
 
       <GiftCardSection t={t} />
-            <ContactSection
+
+      <ContactSection
+        language={language}
         t={t}
         contactEyebrow={settings?.contactEyebrow}
         contactTitle={settings?.contactTitle}
@@ -379,7 +441,7 @@ export function HomePage({
         mapsButtonText={settings?.mapsButtonText}
       />
 
-      <GoogleReviewsSection />
+      <GoogleReviewsSection t = {t}/>
 
       <Footer t={t} />
     </>

@@ -1,23 +1,33 @@
-export function GoogleReviewsSection() {
+import type { Translation } from "../data/translations";
+
+type GoogleReviewsSectionProps = {
+  t: Translation;
+};
+
+export function GoogleReviewsSection({
+  t,
+}: GoogleReviewsSectionProps) {
   return (
     <section className="google-reviews-section">
       <div className="google-reviews-content">
-        <p className="google-reviews-eyebrow">Vad våra kunder tycker</p>
+        <p className="google-reviews-eyebrow">
+          {t.googleReviewsEyebrow}
+        </p>
 
-        <h2>La Fornetto på Google</h2>
+        <h2>{t.googleReviewsTitle}</h2>
 
         <div className="google-rating">
-          <strong>4,2</strong>
+          <strong>{t.googleReviewsRatingValue}</strong>
 
           <div>
             <div
               className="google-stars"
-              aria-label="4,2 av 5 stjärnor"
+              aria-label={t.googleReviewsRatingLabel}
             >
               ★★★★★
             </div>
 
-            <p>287 Google-recensioner</p>
+            <p>{t.googleReviewsCount}</p>
           </div>
         </div>
 
@@ -28,7 +38,7 @@ export function GoogleReviewsSection() {
             rel="noreferrer"
             className="google-review-button secondary"
           >
-            Läs recensioner
+            {t.googleReviewsReadButton}
           </a>
 
           <a
@@ -37,7 +47,7 @@ export function GoogleReviewsSection() {
             rel="noreferrer"
             className="google-review-button primary"
           >
-            Lämna en recension
+            {t.googleReviewsWriteButton}
           </a>
         </div>
       </div>

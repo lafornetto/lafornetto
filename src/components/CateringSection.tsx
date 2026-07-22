@@ -1,4 +1,11 @@
+import type { Translation } from "../data/translations";
+
+type Language = "sv" | "en";
+
 type CateringSectionProps = {
+  language: Language;
+  t: Translation;
+
   cateringEyebrow?: string | null;
   cateringTitle?: string | null;
   cateringTextOne?: string | null;
@@ -6,37 +13,71 @@ type CateringSectionProps = {
   cateringContactButtonText?: string | null;
 };
 
+function getLocalizedText(
+  language: Language,
+  adminText: string | null | undefined,
+  translatedText: string,
+) {
+  if (language === "en") {
+    return translatedText;
+  }
+
+  return adminText?.trim() || translatedText;
+}
+
 export function CateringSection({
+  language,
+  t,
   cateringEyebrow,
   cateringTitle,
   cateringTextOne,
   cateringTextTwo,
   cateringContactButtonText,
 }: CateringSectionProps) {
+  const displayedEyebrow = getLocalizedText(
+    language,
+    cateringEyebrow,
+    t.cateringEyebrow,
+  );
+
+  const displayedTitle = getLocalizedText(
+    language,
+    cateringTitle,
+    t.cateringTitle,
+  );
+
+  const displayedTextOne = getLocalizedText(
+    language,
+    cateringTextOne,
+    t.cateringTextOne,
+  );
+
+  const displayedTextTwo = getLocalizedText(
+    language,
+    cateringTextTwo,
+    t.cateringTextTwo,
+  );
+
+  const displayedContactButtonText = getLocalizedText(
+    language,
+    cateringContactButtonText,
+    t.cateringContactButton,
+  );
+
   return (
     <section className="catering-wrapper">
       <div className="catering-section">
-        <p className="eyebrow">
-          {cateringEyebrow || "CATERING & STORA SÄLLSKAP"}
-        </p>
+        <p className="eyebrow">{displayedEyebrow}</p>
 
-        <h2>
-          {cateringTitle || "Mat för fest, företag och stora tillfällen"}
-        </h2>
+        <h2>{displayedTitle}</h2>
 
-        <p>
-          {cateringTextOne ||
-            "Vi hjälper till med mat till bröllop, företagsmiddagar, föreningar, större event och privata fester."}
-        </p>
+        <p>{displayedTextOne}</p>
 
-        <p>
-          {cateringTextTwo ||
-            "Kontakta oss i god tid så tar vi fram ett upplägg som passar ert sällskap."}
-        </p>
+        <p>{displayedTextTwo}</p>
 
         <div className="catering-actions">
           <a className="primary-btn" href="#contact">
-            {cateringContactButtonText || "Kontakta oss för catering"}
+            {displayedContactButtonText}
           </a>
 
           <a
@@ -44,7 +85,7 @@ export function CateringSection({
             download
             className="catering-download-button"
           >
-            Ladda ner beställningsblankett
+            {t.cateringDownloadButton}
           </a>
         </div>
       </div>
