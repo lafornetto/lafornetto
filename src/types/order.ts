@@ -23,6 +23,7 @@ export type CreateOrderExtraRequest = {
 export type CreateOrderItemRequest = {
   menuItemId: number;
   quantity: number;
+  selectedSize: string | null;
   comment: string | null;
   extras: CreateOrderExtraRequest[];
 };

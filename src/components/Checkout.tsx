@@ -134,6 +134,7 @@ export function Checkout({
       items: items.map((item) => ({
       menuItemId: item.menuItemId,
       quantity: item.quantity,
+      selectedSize: item.selectedSize ?? null,
       comment:
         buildOrderItemComment(item),
       extras: item.extras.map((extra) => ({
