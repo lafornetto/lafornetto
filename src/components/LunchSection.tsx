@@ -1,9 +1,10 @@
+import type { Translation } from "../data/translations";
+
+type Language = "sv" | "en";
+
 type LunchSectionProps = {
-  t: {
-    lunchEyebrow: string;
-    lunchTitle: string;
-    lunchText: string;
-  };
+  language: Language;
+  t: Translation;
 
   lunchEyebrow?: string | null;
   lunchTitle?: string | null;
@@ -14,7 +15,20 @@ type LunchSectionProps = {
   lunchImageThreeUrl: string;
 };
 
+function getLocalizedText(
+  language: Language,
+  adminText: string | null | undefined,
+  translatedText: string,
+) {
+  if (language === "en") {
+    return translatedText;
+  }
+
+  return adminText?.trim() || translatedText;
+}
+
 export function LunchSection({
+  language,
   t,
   lunchEyebrow,
   lunchTitle,
@@ -23,34 +37,69 @@ export function LunchSection({
   lunchImageTwoUrl,
   lunchImageThreeUrl,
 }: LunchSectionProps) {
+  const displayedEyebrow = getLocalizedText(
+    language,
+    lunchEyebrow,
+    t.lunchEyebrow,
+  );
+
+  const displayedTitle = getLocalizedText(
+    language,
+    lunchTitle,
+    t.lunchTitle,
+  );
+
+  const displayedText = getLocalizedText(
+    language,
+    lunchText,
+    t.lunchText,
+  );
+
+  const lunchTextLines = displayedText
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
   return (
     <section id="lunch" className="lunch-section">
       <div className="lunch-content">
-        <p className="eyebrow">
-          {lunchEyebrow || t.lunchEyebrow}
-        </p>
+        <p className="eyebrow">{displayedEyebrow}</p>
 
-        <h2>{lunchTitle || t.lunchTitle}</h2>
+        <h2>{displayedTitle}</h2>
 
-        <p className="lunch-text">
-          {lunchText || t.lunchText}
-        </p>
+        <div className="lunch-text">
+          {lunchTextLines.map((line, index) => (
+            <p key={`${line}-${index}`}>{line}</p>
+          ))}
+        </div>
       </div>
 
       <div className="lunch-gallery-grid">
         <img
           src={lunchImageOneUrl}
-          alt="Lunchrätt från La Fornetto"
+          alt={
+            language === "sv"
+              ? "Lunchrätt från La Fornetto"
+              : "Lunch dish from La Fornetto"
+          }
         />
 
         <img
           src={lunchImageTwoUrl}
-          alt="Lunch från La Fornetto"
+          alt={
+            language === "sv"
+              ? "Lunch från La Fornetto"
+              : "Lunch from La Fornetto"
+          }
         />
 
         <img
           src={lunchImageThreeUrl}
-          alt="Mat från La Fornetto"
+          alt={
+            language === "sv"
+              ? "Mat från La Fornetto"
+              : "Food from La Fornetto"
+          }
         />
       </div>
     </section>

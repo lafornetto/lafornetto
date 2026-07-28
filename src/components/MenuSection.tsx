@@ -16,7 +16,9 @@ type PublicAllergen = {
 type PublicMenuItem = {
   id: number;
   name: string;
+  nameEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   price: number;
   priceText: string | null;
   imageUrl: string | null;
@@ -27,7 +29,9 @@ type PublicMenuItem = {
 type PublicMenuCategory = {
   id: number;
   name: string;
+  nameEn: string | null;
   description: string | null;
+  descriptionEn: string | null;
   sortOrder: number;
   items: PublicMenuItem[];
 };
@@ -41,7 +45,43 @@ type SizeOption = {
   price: number;
 };
 
-export function MenuSection({ language }: MenuSectionProps) {
+const allergenTranslations: Record<string, string> = {
+  gluten: "Gluten",
+  mjölk: "Milk",
+  ägg: "Egg",
+  nötter: "Nuts",
+  vegetarisk: "Vegetarian",
+  vegan: "Vegan",
+  stark: "Spicy",
+  halal: "Halal",
+};
+
+function getLocalizedText(
+  language: Language,
+  swedishText: string | null | undefined,
+  englishText: string | null | undefined,
+) {
+  if (language === "en") {
+    return englishText?.trim() || swedishText?.trim() || "";
+  }
+
+  return swedishText?.trim() || "";
+}
+
+function translateAllergen(
+  name: string,
+  language: Language,
+) {
+  if (language === "sv") {
+    return name;
+  }
+
+  return allergenTranslations[name.toLowerCase()] ?? name;
+}
+
+export function MenuSection({
+  language,
+}: MenuSectionProps) {
   const [menuCategories, setMenuCategories] = useState<
     PublicMenuCategory[]
   >([]);
@@ -51,7 +91,7 @@ export function MenuSection({ language }: MenuSectionProps) {
   >({});
 
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   const { addItem } = useCart();
 
@@ -59,7 +99,7 @@ export function MenuSection({ language }: MenuSectionProps) {
     async function loadMenu() {
       try {
         setIsLoading(true);
-        setErrorMessage("");
+        setHasError(false);
 
         const response = await fetch(
           `${MENU_API_URL}/api/restaurants/${RESTAURANT_ID}/menu`,
@@ -73,10 +113,13 @@ export function MenuSection({ language }: MenuSectionProps) {
           await response.json();
 
         setMenuCategories(data);
-      } catch {
-        setErrorMessage(
-          "Menyn kunde inte laddas just nu. Försök igen om en stund.",
+      } catch (error) {
+        console.error(
+          "Kunde inte hämta menyn:",
+          error,
         );
+
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -89,7 +132,9 @@ export function MenuSection({ language }: MenuSectionProps) {
     return value.trim().toLowerCase();
   }
 
-  function isPizzaCategory(category: PublicMenuCategory) {
+  function isPizzaCategory(
+    category: PublicMenuCategory,
+  ) {
     return normalizeText(category.name) === "pizzor";
   }
 
@@ -124,8 +169,8 @@ export function MenuSection({ language }: MenuSectionProps) {
       getExistingSizeOptions(item);
 
     /*
-      Amigo och Chicago har redan S, M och L.
-      Då används bara dessa alternativ.
+      Pizzor som redan har S, M och L
+      använder dessa storlekar.
     */
     if (existingSizeOptions.length > 0) {
       return existingSizeOptions;
@@ -157,7 +202,7 @@ export function MenuSection({ language }: MenuSectionProps) {
     ];
   }
 
-  function formatPrice(price: number) {
+  function formatCurrency(price: number) {
     return new Intl.NumberFormat("sv-SE", {
       style: "currency",
       currency: "SEK",
@@ -166,8 +211,32 @@ export function MenuSection({ language }: MenuSectionProps) {
     }).format(price);
   }
 
-  function getRegularPriceText(item: PublicMenuItem) {
-    return item.priceText || formatPrice(item.price);
+  function getRegularPriceText(
+    item: PublicMenuItem,
+  ) {
+    if (item.priceText) {
+      return item.priceText;
+    }
+
+    return language === "sv"
+      ? `${item.price} kr`
+      : `${item.price} SEK`;
+  }
+
+  function getDisplayedSizeName(size: string) {
+    if (language === "sv") {
+      return size;
+    }
+
+    if (size === "Vanlig") {
+      return "Regular";
+    }
+
+    if (size === "Familj") {
+      return "Family";
+    }
+
+    return size;
   }
 
   function handleSizeChange(
@@ -193,7 +262,7 @@ export function MenuSection({ language }: MenuSectionProps) {
 
     /*
       Vanlig pizza väljs automatiskt.
-      S/M/L kräver att kunden gör ett aktivt val.
+      S/M/L kräver att kunden väljer storlek.
     */
     const regularOption = options.find(
       (option) => option.size === "Vanlig",
@@ -209,6 +278,12 @@ export function MenuSection({ language }: MenuSectionProps) {
     const options = getOrderOptions(
       item,
       belongsToPizzaCategory,
+    );
+
+    const localizedItemName = getLocalizedText(
+      language,
+      item.name,
+      item.nameEn,
     );
 
     if (options.length > 0) {
@@ -227,7 +302,7 @@ export function MenuSection({ language }: MenuSectionProps) {
 
       addItem({
         menuItemId: item.id,
-        name: item.name,
+        name: localizedItemName,
         selectedSize: selectedOption.size,
         price: selectedOption.price,
         imageUrl: item.imageUrl,
@@ -238,110 +313,116 @@ export function MenuSection({ language }: MenuSectionProps) {
 
     addItem({
       menuItemId: item.id,
-      name: item.name,
+      name: localizedItemName,
       price: item.price,
       imageUrl: item.imageUrl,
     });
   }
 
   function renderItemOrder(
-  item: PublicMenuItem,
-  belongsToPizzaCategory: boolean,
-) {
-  const options = getOrderOptions(
-    item,
-    belongsToPizzaCategory,
-  );
-
-  const selectedSize = getSelectedSize(
-    item,
-    options,
-  );
-
-  if (options.length === 0) {
-    return (
-      <div className="menu-item-order">
-        <strong>{getRegularPriceText(item)}</strong>
-
-        <button
-          type="button"
-          className="menu-add-button"
-          onClick={() =>
-            handleAddToCart(
-              item,
-              belongsToPizzaCategory,
-            )
-          }
-        >
-          Lägg i kundvagn
-        </button>
-      </div>
-    );
-  }
-
-  const hasFamilyOption =
-    options.some(
-      (option) => option.size === "Vanlig",
-    ) &&
-    options.some(
-      (option) => option.size === "Familj",
+    item: PublicMenuItem,
+    belongsToPizzaCategory: boolean,
+  ) {
+    const options = getOrderOptions(
+      item,
+      belongsToPizzaCategory,
     );
 
-  /*
-    Vanliga pizzor får ett kompakt val
-    mellan Vanlig och Familj.
-  */
-  if (hasFamilyOption) {
-    return (
-      <div className="menu-item-order menu-item-order-family">
-        <label className="menu-family-select">
-          <span>Storlek</span>
+    const selectedSize = getSelectedSize(
+      item,
+      options,
+    );
 
-          <select
-            value={selectedSize ?? "Vanlig"}
-            onChange={(event) =>
-              handleSizeChange(
-                item.id,
-                event.target.value,
+    if (options.length === 0) {
+      return (
+        <div className="menu-item-order">
+          <strong>
+            {getRegularPriceText(item)}
+          </strong>
+
+          <button
+            type="button"
+            className="menu-add-button"
+            onClick={() =>
+              handleAddToCart(
+                item,
+                belongsToPizzaCategory,
               )
             }
           >
-            {options.map((option) => (
-              <option
-                key={option.size}
-                value={option.size}
-              >
-                {option.size} –{" "}
-                {formatPrice(option.price)}
-              </option>
-            ))}
-          </select>
-        </label>
+            {language === "sv"
+              ? "Lägg i kundvagn"
+              : "Add to cart"}
+          </button>
+        </div>
+      );
+    }
 
-        <button
-          type="button"
-          className="menu-add-button"
-          onClick={() =>
-            handleAddToCart(
-              item,
-              belongsToPizzaCategory,
-            )
-          }
-        >
-          Lägg i kundvagn
-        </button>
-      </div>
-    );
-  }
+    const hasFamilyOption =
+      options.some(
+        (option) => option.size === "Vanlig",
+      ) &&
+      options.some(
+        (option) => option.size === "Familj",
+      );
 
-  /*
-    Pizzor med S, M och L behåller
-    sina storleksalternativ.
-  */
+    if (hasFamilyOption) {
+      return (
+        <div className="menu-item-order menu-item-order-family">
+          <label className="menu-family-select">
+            <span>
+              {language === "sv"
+                ? "Storlek"
+                : "Size"}
+            </span>
+
+            <select
+              value={selectedSize ?? "Vanlig"}
+              onChange={(event) =>
+                handleSizeChange(
+                  item.id,
+                  event.target.value,
+                )
+              }
+            >
+              {options.map((option) => (
+                <option
+                  key={option.size}
+                  value={option.size}
+                >
+                  {getDisplayedSizeName(
+                    option.size,
+                  )}{" "}
+                  – {formatCurrency(option.price)}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <button
+            type="button"
+            className="menu-add-button"
+            onClick={() =>
+              handleAddToCart(
+                item,
+                belongsToPizzaCategory,
+              )
+            }
+          >
+            {language === "sv"
+              ? "Lägg i kundvagn"
+              : "Add to cart"}
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div className="menu-item-order menu-item-order-variants">
         <span className="menu-size-label">
-          Välj storlek
+          {language === "sv"
+            ? "Välj storlek"
+            : "Choose size"}
         </span>
 
         <div className="menu-size-options">
@@ -366,8 +447,10 @@ export function MenuSection({ language }: MenuSectionProps) {
               />
 
               <span>
-                {option.size} –{" "}
-                {formatPrice(option.price)}
+                {getDisplayedSizeName(
+                  option.size,
+                )}{" "}
+                – {formatCurrency(option.price)}
               </span>
             </label>
           ))}
@@ -385,8 +468,12 @@ export function MenuSection({ language }: MenuSectionProps) {
           }
         >
           {selectedSize
-            ? "Lägg i kundvagn"
-            : "Välj storlek först"}
+            ? language === "sv"
+              ? "Lägg i kundvagn"
+              : "Add to cart"
+            : language === "sv"
+              ? "Välj storlek först"
+              : "Choose a size first"}
         </button>
       </div>
     );
@@ -398,60 +485,90 @@ export function MenuSection({ language }: MenuSectionProps) {
     const belongsToPizzaCategory =
       isPizzaCategory(category);
 
+    const categoryName = getLocalizedText(
+      language,
+      category.name,
+      category.nameEn,
+    );
+
+    const categoryDescription = getLocalizedText(
+      language,
+      category.description,
+      category.descriptionEn,
+    );
+
     return (
       <article
         className="menu-card"
         key={category.id}
       >
-        <h3>{category.name}</h3>
+        <h3>{categoryName}</h3>
 
-        {category.description && (
+        {categoryDescription && (
           <p className="menu-intro">
-            {category.description}
+            {categoryDescription}
           </p>
         )}
 
-        {category.items.map((item) => (
-          <div
-            className="menu-item"
-            key={item.id}
-          >
-            {item.imageUrl && (
-              <img
-                className="menu-item-image"
-                src={item.imageUrl}
-                alt={item.name}
-              />
-            )}
+        {category.items.map((item) => {
+          const itemName = getLocalizedText(
+            language,
+            item.name,
+            item.nameEn,
+          );
 
-            <div className="menu-item-content">
-              <div className="menu-item-information">
-                <h4>{item.name}</h4>
+          const itemDescription = getLocalizedText(
+            language,
+            item.description,
+            item.descriptionEn,
+          );
 
-                {item.description && (
-                  <p>{item.description}</p>
-                )}
+          return (
+            <div
+              className="menu-item"
+              key={item.id}
+            >
+              {item.imageUrl && (
+                <img
+                  className="menu-item-image"
+                  src={item.imageUrl}
+                  alt={itemName}
+                />
+              )}
 
-                {item.allergens.length > 0 && (
-                  <p className="menu-allergens">
-                    Allergener:{" "}
-                    {item.allergens
-                      .map(
-                        (allergen) =>
-                          allergen.name,
-                      )
-                      .join(", ")}
-                  </p>
+              <div className="menu-item-content">
+                <div className="menu-item-information">
+                  <h4>{itemName}</h4>
+
+                  {itemDescription && (
+                    <p>{itemDescription}</p>
+                  )}
+
+                  {item.allergens.length > 0 && (
+                    <p className="menu-allergens">
+                      {language === "sv"
+                        ? "Allergener:"
+                        : "Allergens:"}{" "}
+                      {item.allergens
+                        .map((allergen) =>
+                          translateAllergen(
+                            allergen.name,
+                            language,
+                          ),
+                        )
+                        .join(", ")}
+                    </p>
+                  )}
+                </div>
+
+                {renderItemOrder(
+                  item,
+                  belongsToPizzaCategory,
                 )}
               </div>
-
-              {renderItemOrder(
-                item,
-                belongsToPizzaCategory,
-              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </article>
     );
   }
@@ -463,28 +580,31 @@ export function MenuSection({ language }: MenuSectionProps) {
         className="section"
       >
         <p className="menu-status">
-          Hämtar menyn...
+          {language === "sv"
+            ? "Hämtar menyn..."
+            : "Loading menu..."}
         </p>
       </section>
     );
   }
 
-  if (errorMessage) {
+  if (hasError) {
     return (
       <section
         id="menu"
         className="section"
       >
         <p className="menu-status menu-status-error">
-          {errorMessage}
+          {language === "sv"
+            ? "Menyn kunde inte laddas just nu. Försök igen om en stund."
+            : "The menu could not be loaded right now. Please try again shortly."}
         </p>
       </section>
     );
   }
 
-  const pizzaCategory = menuCategories.find(
-    isPizzaCategory,
-  );
+  const pizzaCategory =
+    menuCategories.find(isPizzaCategory);
 
   const otherCategories =
     menuCategories.filter(
@@ -509,13 +629,9 @@ export function MenuSection({ language }: MenuSectionProps) {
 
       {menuCategories.length === 0 && (
         <p className="menu-status">
-          Det finns ingen meny att visa ännu.
-        </p>
-      )}
-
-      {language === "en" && (
-        <p className="menu-language-note">
-          Menyn visas för närvarande på svenska.
+          {language === "sv"
+            ? "Det finns ingen meny att visa ännu."
+            : "There is no menu to display yet."}
         </p>
       )}
     </section>

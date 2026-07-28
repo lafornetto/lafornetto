@@ -1,22 +1,10 @@
+import type { Translation } from "../data/translations";
+
+type Language = "sv" | "en";
+
 type ContactSectionProps = {
-  t: {
-    contactEyebrow: string;
-    contactTitle: string;
-
-    contactAddressLabel: string;
-    contactPhoneLabel: string;
-    contactInstagramLabel: string;
-
-    contactWinterHoursTitle: string;
-    contactSummerHoursTitle: string;
-
-    contactMondayThursday: string;
-    contactFridaySaturday: string;
-    contactSunday: string;
-
-    contactOpenMapsButton: string;
-    contactMapTitle: string;
-  };
+  language: Language;
+  t: Translation;
 
   contactEyebrow?: string | null;
   contactTitle?: string | null;
@@ -36,6 +24,18 @@ type ContactSectionProps = {
   mapsButtonText?: string | null;
 };
 
+function getLocalizedText(
+  language: Language,
+  adminText: string | null | undefined,
+  translatedText: string,
+) {
+  if (language === "en") {
+    return translatedText;
+  }
+
+  return adminText?.trim() || translatedText;
+}
+
 function getWhatsAppUrl(phoneNumber: string) {
   const normalizedNumber = phoneNumber.replace(/\D/g, "");
 
@@ -43,6 +43,7 @@ function getWhatsAppUrl(phoneNumber: string) {
 }
 
 export function ContactSection({
+  language,
   t,
   contactEyebrow,
   contactTitle,
@@ -57,8 +58,41 @@ export function ContactSection({
   summerHoursText,
   mapsButtonText,
 }: ContactSectionProps) {
-  const displayedEmail = emailText || "lafornetto@hotmail.com";
-  const displayedWhatsApp = whatsappText || "+46 73 546 99 61";
+  const displayedEmail =
+    emailText?.trim() || "lafornetto@hotmail.com";
+
+  const displayedWhatsApp =
+    whatsappText?.trim() || "+46 73 546 99 61";
+
+  const displayedContactEyebrow = getLocalizedText(
+    language,
+    contactEyebrow,
+    t.contactEyebrow,
+  );
+
+  const displayedContactTitle = getLocalizedText(
+    language,
+    contactTitle,
+    t.contactTitle,
+  );
+
+  const displayedWinterHoursTitle = getLocalizedText(
+    language,
+    winterHoursTitle,
+    t.contactWinterHoursTitle,
+  );
+
+  const displayedSummerHoursTitle = getLocalizedText(
+    language,
+    summerHoursTitle,
+    t.contactSummerHoursTitle,
+  );
+
+  const displayedMapsButtonText = getLocalizedText(
+    language,
+    mapsButtonText,
+    t.contactOpenMapsButton,
+  );
 
   const defaultWinterHours = `${t.contactMondayThursday}: 11:00–21:00
 ${t.contactFridaySaturday}: 11:00–22:00
@@ -68,40 +102,58 @@ ${t.contactSunday}: 12:00–21:00`;
 ${t.contactFridaySaturday}: 11:00–23:00
 ${t.contactSunday}: 11:00–22:00`;
 
+  const displayedWinterHours =
+    language === "en"
+      ? defaultWinterHours
+      : winterHoursText?.trim() || defaultWinterHours;
+
+  const displayedSummerHours =
+    language === "en"
+      ? defaultSummerHours
+      : summerHoursText?.trim() || defaultSummerHours;
+
+  const mapLanguage = language === "sv" ? "sv" : "en";
+
+  const mapUrl =
+    `https://www.google.com/maps?q=` +
+    `Östanåvägen%2015%2C%20814%2070%20Älvkarleby` +
+    `&output=embed&hl=${mapLanguage}`;
+
   return (
     <section id="contact" className="contact-section-dark">
       <div className="contact-inner">
         <div className="contact-content">
           <p className="eyebrow">
-            {contactEyebrow || t.contactEyebrow}
+            {displayedContactEyebrow}
           </p>
 
-          <h2>{contactTitle || t.contactTitle}</h2>
+          <h2>{displayedContactTitle}</h2>
 
           <p>
             <strong>{t.contactAddressLabel}:</strong>{" "}
-            {addressText || "Östanåvägen 15, 814 70 Älvkarleby"}
+            {addressText?.trim() ||
+              "Östanåvägen 15, 814 70 Älvkarleby"}
           </p>
 
           <p>
             <strong>{t.contactPhoneLabel}:</strong>{" "}
-            {phoneText || "026-82 120"}
+            {phoneText?.trim() || "026-82 120"}
           </p>
 
           <p>
             <strong>{t.contactInstagramLabel}:</strong>{" "}
-            {instagramText || "@Lafornetto2025"}
+            {instagramText?.trim() || "@Lafornetto2025"}
           </p>
 
           <p>
-            <strong>E-post:</strong>{" "}
+            <strong>{t.contactEmailLabel}:</strong>{" "}
             <a href={`mailto:${displayedEmail}`}>
               {displayedEmail}
             </a>
           </p>
 
           <p>
-            <strong>WhatsApp:</strong>{" "}
+            <strong>{t.contactWhatsappLabel}:</strong>{" "}
             <a
               href={getWhatsAppUrl(displayedWhatsApp)}
               target="_blank"
@@ -112,22 +164,18 @@ ${t.contactSunday}: 11:00–22:00`;
           </p>
 
           <div className="opening-hours">
-            <strong>
-              {winterHoursTitle || t.contactWinterHoursTitle}
-            </strong>
+            <strong>{displayedWinterHoursTitle}</strong>
 
             <span className="opening-hours-text">
-              {winterHoursText || defaultWinterHours}
+              {displayedWinterHours}
             </span>
           </div>
 
           <div className="opening-hours">
-            <strong>
-              {summerHoursTitle || t.contactSummerHoursTitle}
-            </strong>
+            <strong>{displayedSummerHoursTitle}</strong>
 
             <span className="opening-hours-text">
-              {summerHoursText || defaultSummerHours}
+              {displayedSummerHours}
             </span>
           </div>
 
@@ -137,15 +185,16 @@ ${t.contactSunday}: 11:00–22:00`;
             target="_blank"
             rel="noreferrer"
           >
-            {mapsButtonText || t.contactOpenMapsButton}
+            {displayedMapsButtonText}
           </a>
         </div>
 
         <div className="contact-map">
           <iframe
             title={t.contactMapTitle}
-            src="https://www.google.com/maps?q=Östanåvägen%2015%2C%20814%2070%20Älvkarleby&output=embed"
+            src={mapUrl}
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
       </div>

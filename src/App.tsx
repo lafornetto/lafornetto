@@ -11,6 +11,8 @@ import "./App.css";
 const API_URL = import.meta.env.VITE_API_URL;
 const RESTAURANT_ID = 1;
 
+type Language = "sv" | "en";
+
 type RestaurantSettings = {
   id: number;
   restaurantId: number;
@@ -112,11 +114,29 @@ type RestaurantSettings = {
   footerText: string | null;
 };
 
+function getInitialLanguage(): Language {
+  const savedLanguage = localStorage.getItem("lafornetto-language");
+
+  return savedLanguage === "en" ? "en" : "sv";
+}
+
 function App() {
-  const [language, setLanguage] = useState<"sv" | "en">("sv");
-  const [settings, setSettings] = useState<RestaurantSettings | null>(null);
+  const [language, setLanguage] =
+    useState<Language>(getInitialLanguage);
+
+  const [settings, setSettings] =
+    useState<RestaurantSettings | null>(null);
 
   const t = translations[language];
+
+  useEffect(() => {
+    localStorage.setItem(
+      "lafornetto-language",
+      language,
+    );
+
+    document.documentElement.lang = language;
+  }, [language]);
 
   useEffect(() => {
     async function loadSettings() {
@@ -129,10 +149,15 @@ function App() {
           throw new Error("Kunde inte hämta inställningarna.");
         }
 
-        const data: RestaurantSettings = await response.json();
+        const data: RestaurantSettings =
+          await response.json();
+
         setSettings(data);
       } catch (error) {
-        console.error("Kunde inte hämta inställningarna:", error);
+        console.error(
+          "Kunde inte hämta inställningarna:",
+          error,
+        );
       }
     }
 
