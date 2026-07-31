@@ -418,6 +418,24 @@ a {
   justify-self: start;
 }
 
+.footer-credit {
+  margin: 8px 0 0;
+  color: var(--white);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.footer-credit a {
+  color: var(--yellow);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-credit a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
 .footer-links {
   display: flex;
   justify-content: center;

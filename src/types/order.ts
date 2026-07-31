@@ -31,6 +31,7 @@ export type CreateOrderItemRequest = {
 export type CreateOrderRequest = {
   customerName: string;
   customerPhone: string;
+  customerEmail: string;
   customerComment: string | null;
   items: CreateOrderItemRequest[];
 };

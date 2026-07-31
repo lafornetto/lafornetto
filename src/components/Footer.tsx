@@ -13,6 +13,17 @@ export function Footer({ t }: FooterProps) {
     <footer className="site-footer">
       <div className="footer-left">
         <p>{t.footerCopyright}</p>
+
+        <p className="footer-credit">
+          Utvecklad av{" "}
+          <a
+            href="https://granitenstudio.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            granitenstudio.com
+          </a>
+        </p>
       </div>
 
       <div className="footer-links">

@@ -26,6 +26,12 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+    email.trim(),
+  );
+}
+
 function buildOrderItemComment(item: CartItem) {
   const commentParts: string[] = [];
 
@@ -67,6 +73,9 @@ export function Checkout({
   const [customerPhone, setCustomerPhone] =
     useState("");
 
+  const [customerEmail, setCustomerEmail] =
+    useState("");
+
   const [
     customerComment,
     setCustomerComment,
@@ -88,12 +97,14 @@ export function Checkout({
       items.length > 0 &&
       customerName.trim().length >= 2 &&
       customerPhone.trim().length >= 6 &&
+      isValidEmail(customerEmail) &&
       !isSubmitting
     );
   }, [
     items.length,
     customerName,
     customerPhone,
+    customerEmail,
     isSubmitting,
   ]);
 
@@ -125,22 +136,32 @@ export function Checkout({
       return;
     }
 
+    if (!isValidEmail(customerEmail)) {
+      setErrorMessage(
+        "Fyll i en giltig e-postadress.",
+      );
+      return;
+    }
+
     const request: CreateOrderRequest = {
       customerName: customerName.trim(),
       customerPhone:
         customerPhone.trim(),
+      customerEmail:
+        customerEmail.trim().toLowerCase(),
       customerComment:
         customerComment.trim() || null,
       items: items.map((item) => ({
-      menuItemId: item.menuItemId,
-      quantity: item.quantity,
-      selectedSize: item.selectedSize ?? null,
-      comment:
-        buildOrderItemComment(item),
-      extras: item.extras.map((extra) => ({
-        id: extra.id,
+        menuItemId: item.menuItemId,
+        quantity: item.quantity,
+        selectedSize:
+          item.selectedSize ?? null,
+        comment:
+          buildOrderItemComment(item),
+        extras: item.extras.map((extra) => ({
+          id: extra.id,
+        })),
       })),
-    })),
     };
 
     try {
@@ -260,11 +281,22 @@ export function Checkout({
             <strong>Betalning:</strong>{" "}
             Betalas vid upphämtning
           </p>
+
+          <p>
+            <strong>E-post:</strong>{" "}
+            {customerEmail}
+          </p>
         </div>
 
         <p className="checkout-success-message">
           {orderResponse.message ||
-            "Vi börjar förbereda maten så snart som möjligt."}
+            "Beställningen är mottagen. Betalning sker vid hämtning."}
+        </p>
+
+        <p className="checkout-success-message">
+          En orderbekräftelse och eventuella
+          tidsändringar skickas till{" "}
+          <strong>{customerEmail}</strong>.
         </p>
       </section>
     );
@@ -348,6 +380,36 @@ export function Checkout({
             <small>
               Restaurangen kan ringa om det
               finns frågor om beställningen.
+            </small>
+          </div>
+
+          <div className="checkout-form-group">
+            <label htmlFor="customerEmail">
+              E-postadress
+            </label>
+
+            <input
+              id="customerEmail"
+              name="customerEmail"
+              type="email"
+              value={customerEmail}
+              onChange={(event) =>
+                setCustomerEmail(
+                  event.target.value,
+                )
+              }
+              autoComplete="email"
+              inputMode="email"
+              placeholder="namn@exempel.se"
+              maxLength={254}
+              disabled={isSubmitting}
+              required
+            />
+
+            <small>
+              Orderbekräftelse och eventuella
+              ändringar av hämtningstiden
+              skickas till denna adress.
             </small>
           </div>
 
@@ -482,6 +544,7 @@ export function Checkout({
 
           <div className="checkout-summary-total">
             <span>Totalt</span>
+
             <strong>
               {formatPrice(totalPrice)}
             </strong>
