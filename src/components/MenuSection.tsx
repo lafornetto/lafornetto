@@ -6,6 +6,8 @@ import { useCart } from "../context/CartContext";
 
 const RESTAURANT_ID = 1;
 const FAMILY_PIZZA_DISCOUNT = 30;
+const CHILD_PIZZA_DISCOUNT = 10;
+const GLUTEN_FREE_EXTRA_PRICE = 40;
 
 type PublicAllergen = {
   id: number;
@@ -138,6 +140,26 @@ export function MenuSection({
     return normalizeText(category.name) === "pizzor";
   }
 
+  function isFoldedPizza(item: PublicMenuItem) {
+    const text = normalizeText(
+      [
+        item.name,
+        item.nameEn,
+        item.description,
+        item.descriptionEn,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    );
+
+    return (
+      text.includes("inbakad") ||
+      text.includes("halvinbakad") ||
+      text.includes("dubbelinbakad") ||
+      text.includes("folded")
+    );
+  }
+
   function getExistingSizeOptions(
     item: PublicMenuItem,
   ): SizeOption[] {
@@ -170,16 +192,12 @@ export function MenuSection({
 
     /*
       Pizzor som redan har S, M och L
-      använder dessa storlekar.
+      behåller endast dessa storlekar.
     */
     if (existingSizeOptions.length > 0) {
       return existingSizeOptions;
     }
 
-    /*
-      Endast vanliga pizzor får alternativen
-      Vanlig och Familj.
-    */
     if (
       !belongsToPizzaCategory ||
       item.price <= 0
@@ -187,19 +205,42 @@ export function MenuSection({
       return [];
     }
 
+    const childPrice =
+      item.price - CHILD_PIZZA_DISCOUNT;
+
     const familyPrice =
       item.price * 3 - FAMILY_PIZZA_DISCOUNT;
 
-    return [
-      {
-        size: "Vanlig",
-        price: item.price,
-      },
+    const options: SizeOption[] = [
+    {
+      size: "Barnpizza",
+      price: childPrice,
+    },
+    {
+      size: "Vanlig",
+      price: item.price,
+    },
+  ];
+
+  /*
+    Inbakade, halvinbakade och dubbelinbakade
+    pizzor får varken Familj eller Glutenfri.
+  */
+  if (!isFoldedPizza(item)) {
+    options.push(
       {
         size: "Familj",
         price: familyPrice,
       },
-    ];
+      {
+        size: "Glutenfri",
+        price:
+          item.price + GLUTEN_FREE_EXTRA_PRICE,
+      },
+    );
+  }
+
+  return options;
   }
 
   function formatCurrency(price: number) {
@@ -234,6 +275,14 @@ export function MenuSection({
 
     if (size === "Familj") {
       return "Family";
+    }
+
+    if (size === "Barnpizza") {
+      return "Kids pizza";
+    }
+
+    if (size === "Glutenfri") {
+      return "Gluten-free";
     }
 
     return size;
