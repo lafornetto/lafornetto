@@ -422,6 +422,65 @@ export function HomePage({
         </div>
       </section>
 
+      <section className="alvkarleby-history">
+        <div className="alvkarleby-history-content">
+          <p className="eyebrow">
+            {language === "sv"
+              ? "Vår hembygd"
+              : "Our local area"}
+          </p>
+
+          <h2>
+            {language === "sv"
+              ? "Älvkarleby – en plats med historia"
+              : "Älvkarleby – a place with history"}
+          </h2>
+
+          {language === "sv" ? (
+            <>
+              <p>
+                Älvkarleby har vuxit fram kring Dalälven,
+                som i århundraden har präglat livet, naturen
+                och utvecklingen på orten.
+              </p>
+
+              <p>
+                Här möts historiska miljöer och storslagen
+                natur. Laxön, fallen och Carl XIII:s bro
+                berättar alla delar av Älvkarlebys historia.
+              </p>
+
+              <p>
+                La Fornetto är stolta över att vara en del
+                av denna traditionsrika bygd och över att få
+                välkomna både ortsbor och besökare.
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Älvkarleby developed around the River
+                Dalälven, which has shaped the local area,
+                its nature and its people for centuries.
+              </p>
+
+              <p>
+                Historic surroundings meet magnificent
+                scenery here. Laxön, the waterfalls and
+                Carl XIII&apos;s bridge all tell parts of
+                Älvkarleby&apos;s history.
+              </p>
+
+              <p>
+                La Fornetto is proud to be part of this
+                historic community and to welcome both
+                local residents and visitors.
+              </p>
+            </>
+          )}
+        </div>
+      </section>
+
       <GiftCardSection t={t} />
 
       <ContactSection
@@ -441,7 +500,7 @@ export function HomePage({
         mapsButtonText={settings?.mapsButtonText}
       />
 
-      <GoogleReviewsSection t = {t}/>
+      <GoogleReviewsSection t={t} />
 
       <Footer t={t} />
     </>

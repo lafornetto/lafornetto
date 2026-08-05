@@ -2551,3 +2551,31 @@ a {
   padding: 1rem 0;
   border-bottom: 1px solid #e3d4bc;
 }
+
+.alvkarleby-history {
+  padding: 5rem 1.5rem;
+  background: #173b6d;
+  color: #ffffff;
+}
+
+.alvkarleby-history-content {
+  width: min(800px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.alvkarleby-history .eyebrow {
+  color: #f2c100;
+}
+
+.alvkarleby-history-content h2 {
+  margin: 0.5rem 0 1.5rem;
+  color: #ffffff;
+}
+
+.alvkarleby-history-content p {
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+}
