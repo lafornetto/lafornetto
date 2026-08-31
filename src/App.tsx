@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { HomePage } from "./pages/HomePage";
 import { MenuPage } from "./pages/MenuPage";
+import { AlvkarlebyPage } from "./pages/AlvkarlebyPage";
 import { translations } from "./data/translations";
 import { CartProvider } from "./context/CartContext";
 
@@ -115,7 +116,9 @@ type RestaurantSettings = {
 };
 
 function getInitialLanguage(): Language {
-  const savedLanguage = localStorage.getItem("lafornetto-language");
+  const savedLanguage = localStorage.getItem(
+    "lafornetto-language",
+  );
 
   return savedLanguage === "en" ? "en" : "sv";
 }
@@ -146,7 +149,9 @@ function App() {
         );
 
         if (!response.ok) {
-          throw new Error("Kunde inte hämta inställningarna.");
+          throw new Error(
+            "Kunde inte hämta inställningarna.",
+          );
         }
 
         const data: RestaurantSettings =
@@ -187,6 +192,16 @@ function App() {
                 language={language}
                 setLanguage={setLanguage}
                 t={t}
+              />
+            }
+          />
+
+          <Route
+            path="/alvkarleby"
+            element={
+              <AlvkarlebyPage
+                language={language}
+                setLanguage={setLanguage}
               />
             }
           />

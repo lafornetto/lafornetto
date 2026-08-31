@@ -134,6 +134,25 @@ export function MenuSection({
     return value.trim().toLowerCase();
   }
 
+  function getCategoryAnchorId(category: PublicMenuCategory) {
+    return `menu-category-${category.id}`;
+  }
+
+  function scrollToCategory(category: PublicMenuCategory) {
+    const element = document.getElementById(
+      getCategoryAnchorId(category),
+    );
+
+    if (!element) {
+      return;
+    }
+
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+
   function isPizzaCategory(
     category: PublicMenuCategory,
   ) {
@@ -548,6 +567,7 @@ export function MenuSection({
 
     return (
       <article
+        id={getCategoryAnchorId(category)}
         className="menu-card"
         key={category.id}
       >
@@ -666,6 +686,89 @@ export function MenuSection({
       id="menu"
       className="section"
     >
+      {menuCategories.length > 0 && (
+        <>
+          <nav
+            className="menu-category-nav menu-category-nav-desktop"
+            aria-label={
+              language === "sv"
+                ? "Menykategorier"
+                : "Menu categories"
+            }
+          >
+            {menuCategories.map((category) => {
+              const categoryName = getLocalizedText(
+                language,
+                category.name,
+                category.nameEn,
+              );
+
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  className="menu-category-button"
+                  onClick={() =>
+                    scrollToCategory(category)
+                  }
+                >
+                  {categoryName}
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="menu-category-mobile">
+            <label
+              className="menu-category-mobile-label"
+              htmlFor="menu-category-select"
+            >
+              {language === "sv"
+                ? "Välj kategori"
+                : "Choose category"}
+            </label>
+
+            <select
+              id="menu-category-select"
+              className="menu-category-select"
+              defaultValue=""
+              onChange={(event) => {
+                const categoryId = Number(
+                  event.target.value,
+                );
+
+                const category = menuCategories.find(
+                  (item) => item.id === categoryId,
+                );
+
+                if (category) {
+                  scrollToCategory(category);
+                }
+              }}
+            >
+              <option value="" disabled>
+                {language === "sv"
+                  ? "Välj kategori"
+                  : "Choose category"}
+              </option>
+
+              {menuCategories.map((category) => (
+                <option
+                  key={category.id}
+                  value={category.id}
+                >
+                  {getLocalizedText(
+                    language,
+                    category.name,
+                    category.nameEn,
+                  )}
+                </option>
+              ))}
+            </select>
+          </div>
+        </>
+      )}
+
       {pizzaCategory && (
         <div className="pizza-menu">
           {renderCategory(pizzaCategory)}

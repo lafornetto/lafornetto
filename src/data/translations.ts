@@ -3,6 +3,7 @@ export const translations = {
     navNews: "Nyheter",
     navMenu: "Meny",
     navLunch: "Lunch",
+    navAlvkarleby: "Historik",
     navContact: "Kontakt",
 
     heroEyebrow: "Restaurang • Pub • Pizzeria",
@@ -110,6 +111,7 @@ export const translations = {
     navNews: "News",
     navMenu: "Menu",
     navLunch: "Lunch",
+    navAlvkarleby: "History",
     navContact: "Contact",
 
     heroEyebrow: "Restaurant • Pub • Pizzeria",

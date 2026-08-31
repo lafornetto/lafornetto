@@ -12,6 +12,7 @@ type HeroTranslations = {
   navNews: string;
   navMenu: string;
   navLunch: string;
+  navAlvkarleby: string;
   navContact: string;
   heroEyebrow: string;
   heroTitle: string;
@@ -155,6 +156,7 @@ export function Hero({
           <a href="#news">{t.navNews}</a>
           <a href="/meny">{t.navMenu}</a>
           <a href="#lunch">{t.navLunch}</a>
+          <a href="/alvkarleby">{t.navAlvkarleby}</a>
           <a href="#contact">{t.navContact}</a>
         </div>
 
