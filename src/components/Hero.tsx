@@ -83,7 +83,10 @@ export function Hero({
     heroImage,
   );
 
-  const navbarLogo = getImageUrl(logoUrl, logo);
+  const navbarLogo = getImageUrl(
+    logoUrl,
+    logo,
+  );
 
   const displayedHeroEyebrow = getLocalizedText(
     language,
@@ -153,11 +156,25 @@ export function Hero({
         </a>
 
         <div className="nav-links">
-          <a href="#news">{t.navNews}</a>
-          <a href="/meny">{t.navMenu}</a>
-          <a href="#lunch">{t.navLunch}</a>
-          <a href="/alvkarleby">{t.navAlvkarleby}</a>
-          <a href="#contact">{t.navContact}</a>
+          <a href="#news">
+            {t.navNews}
+          </a>
+
+          <a href="/meny">
+            {t.navMenu}
+          </a>
+
+          <a href="#lunch">
+            {t.navLunch}
+          </a>
+
+          <a href="/alvkarleby">
+            {t.navAlvkarleby}
+          </a>
+
+          <a href="#contact">
+            {t.navContact}
+          </a>
         </div>
 
         <div className="language-area">
@@ -202,9 +219,13 @@ export function Hero({
           {displayedHeroEyebrow}
         </p>
 
-        <h1>{displayedHeroTitle}</h1>
+        <h1>
+          {displayedHeroTitle}
+        </h1>
 
-        <p>{displayedHeroText}</p>
+        <p>
+          {displayedHeroText}
+        </p>
 
         <div className="hero-buttons">
           <a
