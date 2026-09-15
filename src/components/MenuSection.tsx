@@ -310,6 +310,26 @@ export function MenuSection({
     category: PublicMenuCategory,
     item: PublicMenuItem,
   ): SauceOption[] {
+    const itemText = normalizeText(
+      [
+        item.name,
+        item.nameEn,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    );
+
+    /*
+      Pizzasallad är ett tillbehör och
+      ska inte ha något sås- eller dressingval.
+    */
+    if (
+      itemText.includes("pizzasallad") ||
+      itemText.includes("pizza salad")
+    ) {
+      return [];
+    }
+
     const text = normalizeText(
       [
         category.name,
@@ -622,7 +642,8 @@ export function MenuSection({
     return (
       <div className="menu-sauce-block">
         <span className="menu-sauce-label">
-          {sauceOptions === SALAD_SAUCES
+          {sauceOptions === SALAD_SAUCES ||
+          sauceOptions === KEBAB_SALAD_SAUCES
             ? language === "sv"
               ? "Sås / dressing"
               : "Sauce / dressing"
