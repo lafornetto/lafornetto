@@ -15,6 +15,7 @@ type AddCartItem = {
   menuItemId: number;
   name: string;
   selectedSize?: string;
+  selectedSauces?: string[];
   price: number;
   imageUrl?: string | null;
 };
@@ -54,12 +55,23 @@ type CartProviderProps = {
 function createCartItemKey(
   menuItemId: number,
   selectedSize?: string,
+  selectedSauces?: string[],
 ): string {
   const sizeKey =
     selectedSize?.trim().toLowerCase() ||
     "standard";
 
-  return `${menuItemId}-${sizeKey}`;
+  const sauceKey =
+    selectedSauces && selectedSauces.length > 0
+      ? [...selectedSauces]
+          .map((sauce) =>
+            sauce.trim().toLowerCase(),
+          )
+          .sort()
+          .join("+")
+      : "no-sauce-selection";
+
+  return `${menuItemId}-${sizeKey}-${sauceKey}`;
 }
 
 function getExtrasPrice(extras: CartExtra[]) {
@@ -80,6 +92,7 @@ export function CartProvider({
     const cartItemKey = createCartItemKey(
       item.menuItemId,
       item.selectedSize,
+      item.selectedSauces,
     );
 
     setItems((currentItems) => {
@@ -109,6 +122,8 @@ export function CartProvider({
           menuItemId: item.menuItemId,
           name: item.name,
           selectedSize: item.selectedSize,
+          selectedSauces:
+            item.selectedSauces ?? [],
           price: item.price,
           imageUrl: item.imageUrl,
           quantity: 1,

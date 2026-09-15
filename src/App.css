@@ -2851,3 +2851,294 @@ a {
     font-size: 12px;
   }
 }
+
+.menu-sauce-select {
+  width: 100%;
+  min-width: 180px;
+  margin: 8px 0;
+  padding: 10px 12px;
+
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+}
+
+.menu-sauce-select legend {
+  padding: 0 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.menu-sauce-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.menu-sauce-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-sauce-option input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.menu-add-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.menu-item-order,
+.menu-item-order-family,
+.menu-item-order-variants {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.menu-family-select,
+.menu-sauce-block {
+  width: 100%;
+  max-width: 280px;
+}
+
+.menu-family-select span,
+.menu-size-label,
+.menu-sauce-label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #0b2d5c;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.menu-family-select select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0b2d5c;
+
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.menu-sauce-select {
+  width: 100%;
+  padding: 14px 16px;
+
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.menu-sauce-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 0;
+
+  color: #0b2d5c;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.menu-sauce-option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.menu-add-button {
+  min-width: 236px;
+  padding: 14px 22px;
+
+  align-self: center;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #f2c300;
+  color: #0b2d5c;
+
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.menu-add-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================
+   KEBABSÅS - DROPDOWN
+   ========================= */
+
+.menu-sauce-block {
+  width: 100%;
+  max-width: 280px;
+}
+
+.menu-sauce-label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #0b2d5c;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.menu-sauce-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.menu-sauce-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 14px;
+
+  background: #ffffff;
+  color: #0b2d5c;
+
+  border: 1px solid #cfcfcf;
+  border-radius: 12px;
+
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+
+  text-align: left;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.menu-sauce-trigger:focus {
+  outline: 2px solid #3b82d0;
+  outline-offset: 1px;
+}
+
+.menu-sauce-trigger-text {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu-sauce-trigger-arrow {
+  flex-shrink: 0;
+  margin-left: 12px;
+
+  font-size: 1rem;
+  color: #0b2d5c;
+}
+
+.menu-sauce-dropdown--open
+  .menu-sauce-trigger-arrow {
+  transform: rotate(180deg);
+}
+
+.menu-sauce-options {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+
+  width: 100%;
+
+  padding: 4px 0;
+
+  background: #ffffff;
+
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+
+  box-shadow: 0 6px 16px
+    rgba(0, 0, 0, 0.16);
+
+  box-sizing: border-box;
+
+  z-index: 100;
+}
+
+.menu-sauce-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+
+  padding: 9px 14px;
+
+  color: #0b2d5c;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.menu-sauce-option:hover {
+  background: #e5effa;
+}
+
+.menu-sauce-option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+.menu-sauce-done-button {
+  display: block;
+  width: calc(100% - 20px);
+
+  margin: 10px;
+  padding: 11px 16px;
+
+  background: #f2c300;
+  color: #0b2d5c;
+
+  border: none;
+  border-radius: 8px;
+
+  font: inherit;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.menu-sauce-done-button:hover {
+  filter: brightness(0.96);
+}

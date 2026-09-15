@@ -9,6 +9,7 @@ export type CartItem = {
   menuItemId: number;
   name: string;
   selectedSize?: string;
+  selectedSauces?: string[];
   price: number;
   quantity: number;
   comment: string;
@@ -24,6 +25,7 @@ export type CreateOrderItemRequest = {
   menuItemId: number;
   quantity: number;
   selectedSize: string | null;
+  selectedSauce: string | null;
   comment: string | null;
   extras: CreateOrderExtraRequest[];
 };
@@ -41,6 +43,7 @@ export type OrderItemDetails = {
   name: string;
   unitPrice: number;
   quantity: number;
+  selectedSauce?: string | null;
   comment: string | null;
   extrasUnitPrice: number;
   extrasText: string | null;

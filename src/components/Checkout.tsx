@@ -156,6 +156,11 @@ export function Checkout({
         quantity: item.quantity,
         selectedSize:
           item.selectedSize ?? null,
+        selectedSauce:
+          item.selectedSauces &&
+          item.selectedSauces.length > 0
+            ? item.selectedSauces.join(", ")
+            : null,
         comment:
           buildOrderItemComment(item),
         extras: item.extras.map((extra) => ({
@@ -510,6 +515,14 @@ export function Checkout({
                           {item.selectedSize}
                         </span>
                       )}
+
+                      {item.selectedSauces &&
+                        item.selectedSauces.length > 0 && (
+                          <span>
+                            Sås:{" "}
+                            {item.selectedSauces.join(", ")}
+                          </span>
+                        )}
                     </div>
 
                     <strong>

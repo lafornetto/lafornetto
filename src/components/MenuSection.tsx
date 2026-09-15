@@ -4,10 +4,149 @@ import type { Language } from "../data/menuData";
 import { MENU_API_URL } from "../config/api";
 import { useCart } from "../context/CartContext";
 
+type SauceOption = {
+  value: string;
+  sv: string;
+  en: string;
+};
+
 const RESTAURANT_ID = 1;
 const FAMILY_PIZZA_DISCOUNT = 30;
 const CHILD_PIZZA_DISCOUNT = 10;
 const GLUTEN_FREE_EXTRA_PRICE = 40;
+const KEBAB_SAUCES: SauceOption[] = [
+  {
+    value: "Vitlök",
+    sv: "Vitlök",
+    en: "Garlic",
+  },
+  {
+    value: "Mild",
+    sv: "Mild",
+    en: "Mild",
+  },
+  {
+    value: "Mellan",
+    sv: "Mellan",
+    en: "Medium",
+  },
+  {
+    value: "Stark",
+    sv: "Stark",
+    en: "Hot",
+  },
+  {
+    value: "Blandad",
+    sv: "Blandad",
+    en: "Mixed",
+  },
+  {
+    value: "Utan sås",
+    sv: "Utan sås",
+    en: "No sauce",
+  },
+];
+
+const SALAD_SAUCES: SauceOption[] = [
+  {
+    value: "Bea",
+    sv: "Bea",
+    en: "Béarnaise",
+  },
+  {
+    value: "Vitlökssås",
+    sv: "Vitlökssås",
+    en: "Garlic sauce",
+  },
+  {
+    value: "Mild Sås",
+    sv: "Mild Sås",
+    en: "Mild sauce",
+  },
+  {
+    value: "Stark Sås",
+    sv: "Stark Sås",
+    en: "Hot sauce",
+  },
+  {
+    value: "Blandad Sås",
+    sv: "Blandad Sås",
+    en: "Mixed sauce",
+  },
+  {
+    value: "Curry Sås",
+    sv: "Curry Sås",
+    en: "Curry sauce",
+  },
+  {
+    value: "Tzatziki",
+    sv: "Tzatziki",
+    en: "Tzatziki",
+  },
+  {
+    value: "Remouladsås",
+    sv: "Remouladsås",
+    en: "Remoulade",
+  },
+  {
+    value: "Rhode Island Sås",
+    sv: "Rhode Island Sås",
+    en: "Rhode Island sauce",
+  },
+];
+
+const KEBAB_SALAD_SAUCES: SauceOption[] = [
+  {
+    value: "Bea",
+    sv: "Bea",
+    en: "Béarnaise",
+  },
+  {
+    value: "Vitlökssås",
+    sv: "Vitlökssås",
+    en: "Garlic sauce",
+  },
+  {
+    value: "Mild Sås",
+    sv: "Mild Sås",
+    en: "Mild sauce",
+  },
+  {
+    value: "Mellan Sås",
+    sv: "Mellan Sås",
+    en: "Medium sauce",
+  },
+  {
+    value: "Stark Sås",
+    sv: "Stark Sås",
+    en: "Hot sauce",
+  },
+  {
+    value: "Blandad Sås",
+    sv: "Blandad Sås",
+    en: "Mixed sauce",
+  },
+  {
+    value: "Curry Sås",
+    sv: "Curry Sås",
+    en: "Curry sauce",
+  },
+  {
+    value: "Tzatziki",
+    sv: "Tzatziki",
+    en: "Tzatziki",
+  },
+  {
+    value: "Remouladsås",
+    sv: "Remouladsås",
+    en: "Remoulade",
+  },
+  {
+    value: "Rhode Island Sås",
+    sv: "Rhode Island Sås",
+    en: "Rhode Island sauce",
+  },
+];
 
 type PublicAllergen = {
   id: number;
@@ -92,6 +231,14 @@ export function MenuSection({
     Record<number, string>
   >({});
 
+  const [selectedSauces, setSelectedSauces] = useState<
+    Record<number, string[]>
+  >({});
+
+  const [openSauceMenuId, setOpenSauceMenuId] = useState<
+    number | null
+  >(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -157,6 +304,51 @@ export function MenuSection({
     category: PublicMenuCategory,
   ) {
     return normalizeText(category.name) === "pizzor";
+  }
+
+  function getSauceOptions(
+    category: PublicMenuCategory,
+    item: PublicMenuItem,
+  ): SauceOption[] {
+    const text = normalizeText(
+      [
+        category.name,
+        category.nameEn,
+        item.name,
+        item.nameEn,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    );
+
+    /*
+      Sallader ska få hela listan med såser och dressingar.
+      Den kontrollen ligger först så att t.ex. en kebabsallad
+      får salladsalternativen i stället för kebabalternativen.
+    */
+    const isSalad =
+      text.includes("sallad") ||
+      text.includes("salad");
+
+    const isKebab =
+      text.includes("kebab");
+
+    if (isSalad && isKebab) {
+      return KEBAB_SALAD_SAUCES;
+    }
+
+    if (isSalad) {
+      return SALAD_SAUCES;
+    }
+
+    if (
+      isKebab ||
+      text.includes("falafel")
+    ) {
+      return KEBAB_SAUCES;
+    }
+
+    return [];
   }
 
   function isFoldedPizza(item: PublicMenuItem) {
@@ -231,35 +423,35 @@ export function MenuSection({
       item.price * 3 - FAMILY_PIZZA_DISCOUNT;
 
     const options: SizeOption[] = [
-    {
-      size: "Barnpizza",
-      price: childPrice,
-    },
-    {
-      size: "Vanlig",
-      price: item.price,
-    },
-  ];
-
-  /*
-    Inbakade, halvinbakade och dubbelinbakade
-    pizzor får varken Familj eller Glutenfri.
-  */
-  if (!isFoldedPizza(item)) {
-    options.push(
       {
-        size: "Familj",
-        price: familyPrice,
+        size: "Barnpizza",
+        price: childPrice,
       },
       {
-        size: "Glutenfri",
-        price:
-          item.price + GLUTEN_FREE_EXTRA_PRICE,
+        size: "Vanlig",
+        price: item.price,
       },
-    );
-  }
+    ];
 
-  return options;
+    /*
+      Inbakade, halvinbakade och dubbelinbakade
+      pizzor får varken Familj eller Glutenfri.
+    */
+    if (!isFoldedPizza(item)) {
+      options.push(
+        {
+          size: "Familj",
+          price: familyPrice,
+        },
+        {
+          size: "Glutenfri",
+          price:
+            item.price + GLUTEN_FREE_EXTRA_PRICE,
+        },
+      );
+    }
+
+    return options;
   }
 
   function formatCurrency(price: number) {
@@ -339,9 +531,195 @@ export function MenuSection({
     return regularOption?.size;
   }
 
+  function handleSauceChange(
+    menuItemId: number,
+    sauce: string,
+    singleSelection: boolean,
+  ) {
+    if (singleSelection) {
+      setSelectedSauces((currentSauces) => ({
+        ...currentSauces,
+        [menuItemId]: [sauce],
+      }));
+
+      setOpenSauceMenuId(null);
+      return;
+    }
+
+    setSelectedSauces((currentSauces) => {
+      const currentSelection =
+        currentSauces[menuItemId] ?? [];
+
+      if (sauce === "Utan sås") {
+        const noSauceAlreadySelected =
+          currentSelection.includes("Utan sås");
+
+        return {
+          ...currentSauces,
+          [menuItemId]: noSauceAlreadySelected
+            ? []
+            : ["Utan sås"],
+        };
+      }
+
+      const withoutNoSauce =
+        currentSelection.filter(
+          (selectedSauce) =>
+            selectedSauce !== "Utan sås",
+        );
+
+      const sauceAlreadySelected =
+        withoutNoSauce.includes(sauce);
+
+      return {
+        ...currentSauces,
+        [menuItemId]: sauceAlreadySelected
+          ? withoutNoSauce.filter(
+              (selectedSauce) =>
+                selectedSauce !== sauce,
+            )
+          : [...withoutNoSauce, sauce],
+      };
+    });
+  }
+
+  function renderSauceSelector(
+    item: PublicMenuItem,
+    sauceOptions: SauceOption[],
+  ) {
+    const itemSelectedSauces =
+      selectedSauces[item.id] ?? [];
+
+    const singleSelection =
+      sauceOptions === SALAD_SAUCES ||
+      sauceOptions === KEBAB_SALAD_SAUCES;
+
+    const isOpen =
+      openSauceMenuId === item.id;
+
+    const selectedSauceText =
+      itemSelectedSauces.length > 0
+        ? itemSelectedSauces
+            .map((selectedSauce) => {
+              const sauce = sauceOptions.find(
+                (option) =>
+                  option.value === selectedSauce,
+              );
+
+              if (!sauce) {
+                return selectedSauce;
+              }
+
+              return language === "sv"
+                ? sauce.sv
+                : sauce.en;
+            })
+            .join(", ")
+        : language === "sv"
+          ? "Välj sås"
+          : "Choose sauce";
+
+    return (
+      <div className="menu-sauce-block">
+        <span className="menu-sauce-label">
+          {sauceOptions === SALAD_SAUCES
+            ? language === "sv"
+              ? "Sås / dressing"
+              : "Sauce / dressing"
+            : language === "sv"
+              ? "Sås"
+              : "Sauce"}
+        </span>
+
+        <div
+          className={`menu-sauce-dropdown ${
+            isOpen ? "menu-sauce-dropdown--open" : ""
+          }`}
+        >
+          <button
+            type="button"
+            className="menu-sauce-trigger"
+            aria-expanded={isOpen}
+            onClick={() =>
+              setOpenSauceMenuId(
+                isOpen ? null : item.id,
+              )
+            }
+          >
+            <span className="menu-sauce-trigger-text">
+              {selectedSauceText}
+            </span>
+
+            <span
+              className="menu-sauce-trigger-arrow"
+              aria-hidden="true"
+            >
+              ▾
+            </span>
+          </button>
+
+          {isOpen && (
+            <div className="menu-sauce-options">
+              {sauceOptions.map((sauce) => (
+                <label
+                  className="menu-sauce-option"
+                  key={sauce.value}
+                >
+                  <input
+                    type={
+                      singleSelection
+                        ? "radio"
+                        : "checkbox"
+                    }
+                    name={
+                      singleSelection
+                        ? `salad-sauce-${item.id}`
+                        : undefined
+                    }
+                    checked={itemSelectedSauces.includes(
+                      sauce.value,
+                    )}
+                    onChange={() =>
+                      handleSauceChange(
+                        item.id,
+                        sauce.value,
+                        singleSelection,
+                      )
+                    }
+                  />
+
+                  <span>
+                    {language === "sv"
+                      ? sauce.sv
+                      : sauce.en}
+                  </span>
+                </label>
+              ))}
+
+              {!singleSelection && (
+                <button
+                  type="button"
+                  className="menu-sauce-done-button"
+                  onClick={() =>
+                    setOpenSauceMenuId(null)
+                  }
+                >
+                  {language === "sv"
+                    ? "Klar"
+                    : "Done"}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   function handleAddToCart(
     item: PublicMenuItem,
     belongsToPizzaCategory: boolean,
+    requiresSauce: boolean,
   ) {
     const options = getOrderOptions(
       item,
@@ -353,6 +731,17 @@ export function MenuSection({
       item.name,
       item.nameEn,
     );
+
+    const itemSelectedSauces = requiresSauce
+      ? selectedSauces[item.id] ?? []
+      : [];
+
+    if (
+      requiresSauce &&
+      itemSelectedSauces.length === 0
+    ) {
+      return;
+    }
 
     if (options.length > 0) {
       const selectedSize = getSelectedSize(
@@ -372,25 +761,33 @@ export function MenuSection({
         menuItemId: item.id,
         name: localizedItemName,
         selectedSize: selectedOption.size,
+        selectedSauces: itemSelectedSauces,
         price: selectedOption.price,
         imageUrl: item.imageUrl,
       });
 
+      setOpenSauceMenuId(null);
       return;
     }
 
     addItem({
       menuItemId: item.id,
       name: localizedItemName,
+      selectedSauces: itemSelectedSauces,
       price: item.price,
       imageUrl: item.imageUrl,
     });
+
+    setOpenSauceMenuId(null);
   }
 
   function renderItemOrder(
     item: PublicMenuItem,
     belongsToPizzaCategory: boolean,
+    sauceOptions: SauceOption[],
   ) {
+    const requiresSauce =
+      sauceOptions.length > 0;
     const options = getOrderOptions(
       item,
       belongsToPizzaCategory,
@@ -401,6 +798,14 @@ export function MenuSection({
       options,
     );
 
+    const itemSelectedSauces = requiresSauce
+      ? selectedSauces[item.id] ?? []
+      : [];
+
+    const sauceMissing =
+      requiresSauce &&
+      itemSelectedSauces.length === 0;
+
     if (options.length === 0) {
       return (
         <div className="menu-item-order">
@@ -408,19 +813,31 @@ export function MenuSection({
             {getRegularPriceText(item)}
           </strong>
 
+          {requiresSauce &&
+            renderSauceSelector(
+              item,
+              sauceOptions,
+            )}
+
           <button
             type="button"
             className="menu-add-button"
+            disabled={sauceMissing}
             onClick={() =>
               handleAddToCart(
                 item,
                 belongsToPizzaCategory,
+                requiresSauce,
               )
             }
           >
-            {language === "sv"
-              ? "Lägg i kundvagn"
-              : "Add to cart"}
+            {sauceMissing
+              ? language === "sv"
+                ? "Välj sås först"
+                : "Choose sauce first"
+              : language === "sv"
+                ? "Lägg i kundvagn"
+                : "Add to cart"}
           </button>
         </div>
       );
@@ -467,23 +884,37 @@ export function MenuSection({
             </select>
           </label>
 
+          {requiresSauce &&
+            renderSauceSelector(
+              item,
+              sauceOptions,
+            )}
+
           <button
             type="button"
             className="menu-add-button"
+            disabled={sauceMissing}
             onClick={() =>
               handleAddToCart(
                 item,
                 belongsToPizzaCategory,
+                requiresSauce,
               )
             }
           >
-            {language === "sv"
-              ? "Lägg i kundvagn"
-              : "Add to cart"}
+            {sauceMissing
+              ? language === "sv"
+                ? "Välj sås först"
+                : "Choose sauce first"
+              : language === "sv"
+                ? "Lägg i kundvagn"
+                : "Add to cart"}
           </button>
         </div>
       );
     }
+
+    const sizeMissing = !selectedSize;
 
     return (
       <div className="menu-item-order menu-item-order-variants">
@@ -524,24 +955,37 @@ export function MenuSection({
           ))}
         </div>
 
+        {requiresSauce &&
+          renderSauceSelector(
+              item,
+              sauceOptions,
+            )}
+
         <button
           type="button"
           className="menu-add-button"
-          disabled={!selectedSize}
+          disabled={
+            sizeMissing || sauceMissing
+          }
           onClick={() =>
             handleAddToCart(
               item,
               belongsToPizzaCategory,
+              requiresSauce,
             )
           }
         >
-          {selectedSize
+          {sizeMissing
             ? language === "sv"
-              ? "Lägg i kundvagn"
-              : "Add to cart"
-            : language === "sv"
               ? "Välj storlek först"
-              : "Choose a size first"}
+              : "Choose a size first"
+            : sauceMissing
+              ? language === "sv"
+                ? "Välj sås först"
+                : "Choose sauce first"
+              : language === "sv"
+                ? "Lägg i kundvagn"
+                : "Add to cart"}
         </button>
       </div>
     );
@@ -580,6 +1024,12 @@ export function MenuSection({
         )}
 
         {category.items.map((item) => {
+          const sauceOptions =
+            getSauceOptions(
+              category,
+              item,
+            );
+
           const itemName = getLocalizedText(
             language,
             item.name,
@@ -633,6 +1083,7 @@ export function MenuSection({
                 {renderItemOrder(
                   item,
                   belongsToPizzaCategory,
+                  sauceOptions,
                 )}
               </div>
             </div>
