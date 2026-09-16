@@ -25,7 +25,7 @@ function getImageUrl(
   imageUrl: string | null | undefined,
   fallback: string,
 ) {
-  if (!imageUrl) {
+  if (!imageUrl?.trim()) {
     return fallback;
   }
 
@@ -88,11 +88,13 @@ export function NewsSection({
     t.newsTitle,
   );
 
-  const displayedText = getLocalizedText(
-    language,
-    newsText,
-    t.newsText,
-  );
+  // Nyhetstexten ska INTE använda fallback
+  // om fältet är tomt i admin.
+  const displayedText = !newsText?.trim()
+    ? ""
+    : language === "en"
+      ? t.newsText
+      : newsText.trim();
 
   const newsTextLines = displayedText
     .split("\n")
@@ -102,15 +104,21 @@ export function NewsSection({
   return (
     <section id="news" className="news-section">
       <div className="news-content">
-        <p className="eyebrow">{displayedEyebrow}</p>
+        <p className="eyebrow">
+          {displayedEyebrow}
+        </p>
 
         <h2>{displayedTitle}</h2>
 
-        <div className="news-text">
-          {newsTextLines.map((line, index) => (
-            <p key={`${line}-${index}`}>{line}</p>
-          ))}
-        </div>
+        {newsTextLines.length > 0 && (
+          <div className="news-text">
+            {newsTextLines.map((line, index) => (
+              <p key={`${line}-${index}`}>
+                {line}
+              </p>
+            ))}
+          </div>
+        )}
 
         <div className="news-gallery">
           <img
