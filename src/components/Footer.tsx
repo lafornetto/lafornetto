@@ -28,7 +28,7 @@ export function Footer({ t }: FooterProps) {
 
       <div className="footer-links">
         <a
-          href="https://www.facebook.com/share/1Dg8Ym2hek/"
+          href="https://www.facebook.com/share/1Dg8Ym2heK/"
           target="_blank"
           rel="noreferrer"
         >
