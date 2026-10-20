@@ -1,3 +1,5 @@
+
+import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 import heroImage from "../assets/images/lafornetto-front.jpg";
@@ -38,9 +40,9 @@ type HeroProps = {
 
 function getImageUrl(
   imageUrl: string | null | undefined,
-  fallback: string,
+  fallback: string
 ) {
-  if (!imageUrl) {
+  if (!imageUrl?.trim()) {
     return fallback;
   }
 
@@ -51,13 +53,17 @@ function getImageUrl(
     return imageUrl;
   }
 
-  return `${API_URL}${imageUrl}`;
+  if (!API_URL) {
+    return imageUrl;
+  }
+
+  return `${API_URL.replace(/\/$/, "")}/${imageUrl.replace(/^\//, "")}`;
 }
 
 function getLocalizedText(
   language: Language,
   adminText: string | null | undefined,
-  translatedText: string,
+  translatedText: string
 ) {
   if (language === "en") {
     return translatedText;
@@ -78,67 +84,69 @@ export function Hero({
   heroPrimaryButtonText,
   heroSecondaryButtonText,
 }: HeroProps) {
-  const heroBackgroundImage = getImageUrl(
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Bilden hämtas från adminpanelen.
+  // Den lokala bilden används som reserv.
+  const heroRightImage = getImageUrl(
     heroImageUrl,
-    heroImage,
+    heroImage
   );
 
   const navbarLogo = getImageUrl(
     logoUrl,
-    logo,
+    logo
   );
 
+  // Texter från adminpanelen och språkfiler
   const displayedHeroEyebrow = getLocalizedText(
     language,
     heroEyebrow,
-    t.heroEyebrow,
+    t.heroEyebrow
   );
 
   const displayedHeroTitle = getLocalizedText(
     language,
     heroTitle,
-    t.heroTitle,
+    t.heroTitle
   );
 
   const displayedHeroText = getLocalizedText(
     language,
     heroText,
-    t.heroText,
+    t.heroText
   );
 
   const displayedPrimaryButtonText = getLocalizedText(
     language,
     heroPrimaryButtonText,
-    t.callButton,
+    t.callButton
   );
 
   const displayedSecondaryButtonText = getLocalizedText(
     language,
     heroSecondaryButtonText,
-    t.menuButton,
+    t.menuButton
   );
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <section
-      className="hero"
-      style={{
-        backgroundImage: `
-          linear-gradient(
-            rgba(11, 45, 92, 0.58),
-            rgba(7, 27, 56, 0.82)
-          ),
-          url(${heroBackgroundImage})
-        `,
-      }}
-    >
+    <section className="hero premium-hero">
+      <div className="hero-overlay" aria-hidden="true" />
+
+      {/* NAVIGATION */}
       <nav
-        className="navbar"
+        className="navbar premium-navbar"
         aria-label={
           language === "sv"
             ? "Huvudnavigation"
             : "Main navigation"
         }
       >
+        {/* LOGOTYP */}
         <a
           href="/"
           className="brand"
@@ -155,31 +163,39 @@ export function Hero({
           />
         </a>
 
-        <div className="nav-links">
-          <a href="#news">
+        {/* NAVIGATIONSLÄNKAR */}
+        <div
+          id="hero-navigation"
+          className={`nav-links premium-nav-links ${
+            mobileMenuOpen ? "mobile-nav-open" : ""
+          }`}
+        >
+          <a href="#news" onClick={closeMobileMenu}>
             {t.navNews}
           </a>
 
-          <a href="/meny">
+          <a href="/meny" onClick={closeMobileMenu}>
             {t.navMenu}
           </a>
 
-          <a href="#lunch">
+          <a href="#lunch" onClick={closeMobileMenu}>
             {t.navLunch}
           </a>
 
-          <a href="/alvkarleby">
+          <a href="/alvkarleby" onClick={closeMobileMenu}>
             {t.navAlvkarleby}
           </a>
 
-          <a href="#contact">
+          <a href="#contact" onClick={closeMobileMenu}>
             {t.navContact}
           </a>
         </div>
 
-        <div className="language-area">
+        {/* SPRÅKVÄXLING */}
+        <div className="language-area premium-language-area">
           <div
             className="language-switcher"
+            role="group"
             aria-label={
               language === "sv"
                 ? "Välj språk"
@@ -212,35 +228,79 @@ export function Hero({
             className="sweden-flag"
           />
         </div>
+
+        {/* HAMBURGERMENY FÖR MOBIL */}
+        <button
+          type="button"
+          className="premium-menu-toggle"
+          aria-label={
+            language === "sv"
+              ? "Öppna eller stäng menyn"
+              : "Open or close menu"
+          }
+          aria-expanded={mobileMenuOpen}
+          aria-controls="hero-navigation"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
 
-      <div className="hero-content">
-        <p className="eyebrow">
-          {displayedHeroEyebrow}
-        </p>
+      {/* HERO-SEKTION */}
+      <div className="hero-inner">
+        <div className="hero-layout">
 
-        <h1>
-          {displayedHeroTitle}
-        </h1>
+          {/* VÄNSTER SIDA - TEXT */}
+          <div className="hero-copy">
+            <p className="eyebrow">
+              {displayedHeroEyebrow}
+            </p>
 
-        <p>
-          {displayedHeroText}
-        </p>
+            <h1>
+              {displayedHeroTitle}
+            </h1>
 
-        <div className="hero-buttons">
-          <a
-            className="primary-btn"
-            href="tel:+462682120"
-          >
-            {displayedPrimaryButtonText}
-          </a>
+            <p className="hero-description">
+              {displayedHeroText}
+            </p>
 
-          <a
-            className="secondary-btn"
-            href="/meny"
-          >
-            {displayedSecondaryButtonText}
-          </a>
+            {/* KNAPPAR */}
+            <div className="hero-buttons premium-hero-buttons">
+              <a
+                className="primary-btn"
+                href="tel:+462682120"
+              >
+                {displayedPrimaryButtonText}
+              </a>
+
+              <a
+                className="secondary-btn light-btn"
+                href="/meny"
+              >
+                {displayedSecondaryButtonText}
+              </a>
+            </div>
+          </div>
+
+          {/* HÖGER SIDA - PIZZABILD */}
+          <div className="hero-visual">
+            <div className="hero-image-wrap">
+              <img
+                src={heroRightImage}
+                alt={
+                  language === "sv"
+                    ? "La Fornettos pizza och färska ingredienser"
+                    : "La Fornetto pizza and fresh ingredients"
+                }
+                className="hero-pizza-image"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
