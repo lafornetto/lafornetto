@@ -3514,3 +3514,226 @@ a {
     display: flex;
   }
 }
+
+
+/* ========================================
+   LA FORNETTO - FULL HEIGHT HERO IMAGE
+======================================== */
+
+@media (min-width: 1101px) {
+
+  .hero.premium-hero {
+    position: relative;
+    min-height: 600px;
+    height: 600px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .premium-hero .premium-navbar {
+    position: relative;
+    z-index: 10;
+    padding-top: 10px;
+  }
+
+  .premium-hero .hero-inner {
+    position: absolute;
+    inset: 0;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 24px;
+    margin: 0 auto;
+  }
+
+  .premium-hero .hero-layout {
+    display: grid;
+    grid-template-columns: 47% 53%;
+    height: 100%;
+    min-height: 0;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .premium-hero .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 620px;
+    padding: 60px 0 0;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+  }
+
+  .premium-hero .hero-visual {
+    position: relative;
+    height: 100%;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .premium-hero .hero-image-wrap {
+    position: absolute;
+    top: 50%;
+    right: calc((1400px - 100vw) / 2 - 24px);
+    width: 850px;
+    height: 850px;
+    max-width: none;
+    margin: 0;
+    transform: translateY(-50%);
+  }
+
+  .premium-hero .hero-pizza-image {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+
+/* =====================================
+   LA FORNETTO - TYDLIG NAVIGATION
+===================================== */
+
+/* Navigationsmenyn ovanför pizzabilden */
+.premium-hero .premium-navbar {
+  position: relative;
+  z-index: 50;
+}
+
+/* Texten i navigationen */
+.premium-hero .premium-nav-links {
+  position: relative;
+  z-index: 51;
+}
+
+.premium-hero .premium-nav-links a {
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+/* Mörk, halvtransparent bakgrund bakom länkarna */
+@media (min-width: 1101px) {
+  .premium-hero .premium-nav-links {
+    padding: 12px 20px;
+    background: rgba(7, 28, 57, 0.82);
+    border-radius: 40px;
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Låt bilden ligga bakom navigationen */
+.premium-hero .hero-inner {
+  z-index: 2;
+}
+
+.premium-hero .hero-visual {
+  z-index: 1;
+}
+
+
+/* ==========================================
+   LA FORNETTO - MOBILNAVIGATION
+========================================== */
+
+@media (max-width: 768px) {
+
+  /* Navigation högst upp */
+  .premium-hero .premium-navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 20px;
+  }
+
+  /* Logotyp */
+  .premium-hero .navbar-logo {
+    width: 85px;
+    height: 85px;
+  }
+
+  /* Visa hamburgerknappen */
+  .premium-hero .premium-menu-toggle {
+    display: flex;
+    order: 3;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .premium-hero .premium-menu-toggle span {
+    width: 24px;
+    height: 3px;
+    background: white;
+  }
+
+  /* Språkval bredvid hamburgermenyn */
+  .premium-hero .premium-language-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    order: 2;
+  }
+
+  /* Dölj flaggan på mobil */
+  .premium-hero .sweden-flag {
+    display: none;
+  }
+
+  /* Dölj navigationslänkarna */
+  .premium-hero .premium-nav-links {
+    display: none;
+    position: relative;
+    order: 4;
+    flex-basis: 100%;
+    width: 100%;
+    padding: 12px;
+    margin: 0;
+    background: #09254a;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Visa länkarna när menyn öppnas */
+  .premium-hero .premium-nav-links.mobile-nav-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .premium-hero .premium-nav-links a {
+    display: block;
+    padding: 14px;
+    color: #ffffff;
+    font-size: 1rem;
+    text-align: left;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  .premium-hero .premium-nav-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff922e;
+  }
+
+  /* Minska tomrummet ovanför rubriken */
+  .premium-hero .hero-inner {
+    padding-top: 10px;
+  }
+
+  .premium-hero .hero-copy {
+    padding-top: 25px;
+  }
+}
